@@ -35,9 +35,9 @@ const PRODUCT_CATEGORIES = [
     id: 1,
     icon: <Droplets size={28} />,
     name: "Personal Care Essentials",
-    description: "Premium toothbrush kits, toothpaste, shampoo, conditioner, shower gel, and soap crafted for a luxurious in-room experience.",
-    photoLabel: "Foto 1",
-    items: ["Toothbrush & Paste", "Shampoo", "Conditioner", "Shower Gel", "Bar Soap"],
+    description: "Premium shampoo, conditioner, shower gel, body lotion, and soap crafted for a luxurious in-room experience.",
+    image: "/images/cat-personal-care.jpg",
+    items: ["Shampoo", "Conditioner", "Shower Gel", "Body Lotion", "Bar Soap"],
     color: "#1a3a5c",
     accent: "#2c6e8a",
   },
@@ -46,7 +46,7 @@ const PRODUCT_CATEGORIES = [
     icon: <Shirt size={28} />,
     name: "Comfort Items",
     description: "Hotel-grade towels, plush bathrobes, and slippers designed to deliver superior softness and lasting durability.",
-    photoLabel: "Foto 2",
+    image: "/images/cat-comfort.jpg",
     items: ["Bath Towels", "Bathrobe", "Hotel Slippers", "Face Towel", "Bath Mat"],
     color: "#c9a84c",
     accent: "#e0b84e",
@@ -56,8 +56,8 @@ const PRODUCT_CATEGORIES = [
     icon: <Package size={28} />,
     name: "Convenience Goods",
     description: "Cotton buds, shower caps, combs, tissue, sewing kits, shoe shine, and all daily essentials guests expect.",
-    photoLabel: "Foto 3",
-    items: ["Cotton Buds", "Shower Cap", "Comb", "Tissue", "Sewing Kit", "Shoe Shine"],
+    image: "/images/cat-convenience.jpg",
+    items: ["Cotton Buds", "Shower Cap", "Comb", "Tissue", "Sewing Kit"],
     color: "#2c6e8a",
     accent: "#3d8ca8",
   },
@@ -66,26 +66,31 @@ const PRODUCT_CATEGORIES = [
     icon: <Leaf size={28} />,
     name: "Eco-Friendly Solutions",
     description: "Sustainable, biodegradable amenity lines made from responsibly sourced materials — guests love them, the planet does too.",
-    photoLabel: "Foto 4",
-    items: ["Bamboo Toothbrush", "Refillable Dispensers", "Recycled Packaging", "Natural Soap", "Organic Shampoo"],
+    image: "/images/cat-eco.jpg",
+    items: ["Bamboo Toothbrush", "Refillable Dispensers", "Natural Soap", "Organic Shampoo"],
     color: "#3a7d44",
     accent: "#4a9c56",
   },
 ];
 
 const PRODUCTS = [
-  { id: 1, name: "Toothbrush & Paste Kit", category: "Personal Care", description: "Individually wrapped premium toothbrush with mint toothpaste, hotel-standard quality.", photoLabel: "Foto 1" },
-  { id: 2, name: "Luxury Shampoo", category: "Personal Care", description: "Nourishing formula with natural botanical extracts. Available in 30ml & 50ml.", photoLabel: "Foto 2" },
-  { id: 3, name: "Hotel Bathrobe", category: "Comfort Items", description: "Ultra-soft 100% cotton terry bathrobe. One-size-fits-all, custom embroidery available.", photoLabel: "Foto 3" },
-  { id: 4, name: "Plush Hotel Slippers", category: "Comfort Items", description: "Closed-toe or open-toe slippers with non-slip sole, elegant and durable.", photoLabel: "Foto 4" },
-  { id: 5, name: "Shower Cap", category: "Convenience Goods", description: "Waterproof PE shower cap, individually wrapped in elegant packaging.", photoLabel: "Foto 5" },
-  { id: 6, name: "Shower Gel", category: "Personal Care", description: "Moisturising shower gel with refreshing fragrance, pH-balanced formula.", photoLabel: "Foto 6" },
-  { id: 7, name: "Premium Bath Towel", category: "Comfort Items", description: "600 GSM 100% Egyptian cotton bath towels with hotel-grade absorbency.", photoLabel: "Foto 7" },
-  { id: 8, name: "Conditioner", category: "Personal Care", description: "Deep-conditioning formula enriched with argan oil. Leaves hair silky smooth.", photoLabel: "Foto 8" },
-  { id: 9, name: "Eco Bamboo Kit", category: "Eco-Friendly", description: "Bamboo toothbrush + biodegradable packaging — the sustainable amenity guests love.", photoLabel: "Foto 9" },
-  { id: 10, name: "Cotton Buds", category: "Convenience Goods", description: "100% pure cotton buds, safely designed and individually sealed.", photoLabel: "Foto 10" },
-  { id: 11, name: "Body Soap Bar", category: "Personal Care", description: "Gentle pH-balanced soap bar enriched with moisturising ingredients.", photoLabel: "Foto 11" },
-  { id: 12, name: "Comb & Hair Kit", category: "Convenience Goods", description: "Foldable pocket comb with nail file, packaged in elegant organza bag.", photoLabel: "Foto 12" },
+  { id: 1,  name: "Shampoo Classic",          category: "Personal Care",    image: "/images/prod-02-shampoo.jpg",      description: "Hair shampoo with green tea extract, 25ml — classic formula for daily hotel use." },
+  { id: 2,  name: "Shampoo Aromatherapy",     category: "Personal Care",    image: "/images/prod-shampoo-botol.jpg",   description: "Aromatherapy shampoo with aloe vera extract, 25–30ml. Refreshing and nourishing." },
+  { id: 3,  name: "Hair Conditioner",         category: "Personal Care",    image: "/images/prod-conditioner.jpg",     description: "Hair conditioner classic with green tea, 25ml. Leaves hair smooth and manageable." },
+  { id: 4,  name: "Shower Gel Classic",       category: "Personal Care",    image: "/images/prod-06-shower-gel.jpg",   description: "Body shower gel with green tea, 25ml. Refreshing fragrance, gentle on skin." },
+  { id: 5,  name: "Shower Gel Aromatherapy",  category: "Personal Care",    image: "/images/prod-06b-shower-gel.jpg",  description: "Aromatherapy shower gel, 30ml. POM-certified, produced locally in Bali." },
+  { id: 6,  name: "Body Lotion Aromatherapy", category: "Personal Care",    image: "/images/prod-body-lotion.jpg",     description: "Moisturising body lotion with aromatherapy, 30ml. POM-certified, Bungan Jepun Bali." },
+  { id: 7,  name: "Body Lotion Classic",      category: "Personal Care",    image: "/images/prod-body-lotion2.jpg",    description: "Body lotion classic with green tea, 25ml. Smooth and hydrating for daily use." },
+  { id: 8,  name: "Bath Foam",                category: "Personal Care",    image: "/images/prod-bath-foam.jpg",       description: "Luxury bath foam in elegant blue bottle, 25ml. Fragrant and skin-friendly." },
+  { id: 9,  name: "Liquid Soap",              category: "Personal Care",    image: "/images/prod-liquid-soap.jpg",     description: "Gentle liquid soap in premium bottle, 25ml. POM-certified, made in Indonesia." },
+  { id: 10, name: "Bar Soap",                 category: "Personal Care",    image: "/images/prod-11-soap.jpg",         description: "Wrapped bar soap 15gr, HALAL-certified. Classic hotel presentation." },
+  { id: 11, name: "Hotel Soap",               category: "Personal Care",    image: "/images/prod-hotel-soap.jpg",      description: "Hotel soap bar 25gr, premium pleated wrap. HALAL-certified, elegant finish." },
+  { id: 12, name: "Bath Towel",               category: "Comfort Items",    image: null,                               description: "600 GSM 100% cotton bath towels with hotel-grade absorbency and durability." },
+  { id: 13, name: "Bathrobe",                 category: "Comfort Items",    image: null,                               description: "Ultra-soft 100% cotton terry bathrobe. Custom embroidery available." },
+  { id: 14, name: "Hotel Slippers",           category: "Comfort Items",    image: null,                               description: "Closed-toe or open-toe slippers with non-slip sole, elegant and durable." },
+  { id: 15, name: "Cotton Buds",              category: "Convenience Goods",image: null,                               description: "100% pure cotton buds, safely designed and individually sealed." },
+  { id: 16, name: "Shower Cap",               category: "Convenience Goods",image: null,                               description: "Waterproof PE shower cap, individually wrapped in elegant packaging." },
+  { id: 17, name: "Eco Bamboo Kit",           category: "Eco-Friendly",     image: null,                               description: "Bamboo toothbrush + biodegradable packaging — the sustainable amenity guests love." },
 ];
 
 const WHY_ITEMS = [
@@ -114,7 +119,22 @@ const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
 
 // ─── PHOTO PLACEHOLDER ───────────────────────────────────────────────────────
 
-function PhotoPlaceholder({ label, className = "", style = {}, dark }) {
+function ProductImage({ src, alt, className = "", style = {}, dark }) {
+  const [error, setError] = useState(false);
+
+  if (src && !error) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        style={{ objectFit: "cover", width: "100%", height: "100%", ...style }}
+        onError={() => setError(true)}
+      />
+    );
+  }
+
+  // Fallback placeholder
   return (
     <div
       className={`flex items-center justify-center select-none ${className}`}
@@ -126,21 +146,17 @@ function PhotoPlaceholder({ label, className = "", style = {}, dark }) {
       }}
     >
       <div className="flex flex-col items-center gap-2 pointer-events-none">
-        <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center"
-          style={{ background: dark ? "rgba(196,164,76,0.15)" : "rgba(26,58,92,0.1)" }}
-        >
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+          style={{ background: dark ? "rgba(196,164,76,0.15)" : "rgba(26,58,92,0.1)" }}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <rect x="3" y="5" width="18" height="14" rx="2" stroke={dark ? "#c9a84c" : "#1a3a5c"} strokeWidth="1.5" />
             <circle cx="8.5" cy="10.5" r="2" stroke={dark ? "#c9a84c" : "#1a3a5c"} strokeWidth="1.5" />
             <path d="M3 17l4-4 3 3 4-5 7 6" stroke={dark ? "#c9a84c" : "#1a3a5c"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <span
-          className="text-sm font-bold tracking-wider uppercase"
-          style={{ color: dark ? "#c9a84c" : "#1a3a5c", opacity: 0.7 }}
-        >
-          {label}
+        <span className="text-sm font-bold tracking-wider uppercase"
+          style={{ color: dark ? "#c9a84c" : "#1a3a5c", opacity: 0.7 }}>
+          {alt}
         </span>
       </div>
     </div>
@@ -569,7 +585,7 @@ function ProductCategories({ dark }) {
             >
               {/* Photo placeholder */}
               <div className="relative h-40 sm:h-48 overflow-hidden">
-                <PhotoPlaceholder label={cat.photoLabel} dark={dark} className="w-full h-full group-hover:scale-110 transition-transform duration-700" />
+                <ProductImage src={cat.image} alt={cat.name} dark={dark} className="w-full h-full group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                 <div
                   className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-white"
@@ -669,7 +685,7 @@ function FeaturedProducts({ dark }) {
                 className={`group rounded-xl sm:rounded-2xl overflow-hidden ${cardBg} border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-400`}
               >
                 <div className="relative h-40 sm:h-52 overflow-hidden">
-                  <PhotoPlaceholder label={product.photoLabel} dark={dark} className="w-full h-full group-hover:scale-105 transition-transform duration-600" />
+                  <ProductImage src={product.image} alt={product.name} dark={dark} className="w-full h-full group-hover:scale-105 transition-transform duration-600" />
                   <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3">
                     <span className={`text-[9px] sm:text-[10px] font-bold ${tagBg} backdrop-blur-sm px-2 py-0.5 sm:py-1 rounded-full shadow`}>
                       {product.category}
