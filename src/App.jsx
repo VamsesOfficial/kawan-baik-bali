@@ -479,7 +479,7 @@ function About({ dark }) {
           {/* Image placeholder */}
           <motion.div variants={fadeUp} className="relative order-2 lg:order-1">
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-              <PhotoPlaceholder label="Foto 1" dark={dark} className="w-full h-full" />
+              <ProductImage src={null} alt="About PT Kawan Baik Bali" dark={dark} className="w-full h-full" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a5c]/40 via-transparent" />
             </div>
             {/* Floating card */}
