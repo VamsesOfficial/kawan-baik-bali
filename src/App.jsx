@@ -433,7 +433,7 @@ function Hero({ dark }) {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.05] tracking-tight mb-5 sm:mb-6"
+            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.05] tracking-tight mb-5 sm:mb-6"
           >
             Premium Hotel
             <br />
@@ -457,7 +457,7 @@ function Hero({ dark }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.65 }}
-            className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4"
+            className="flex flex-row flex-wrap gap-3 sm:gap-4"
           >
             <button
               onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
@@ -488,8 +488,8 @@ function Hero({ dark }) {
                   transition={{ delay: 0.8 + i * 0.1 }}
                   className="text-center"
                 >
-                  <p className="text-xl sm:text-2xl lg:text-3xl font-black text-amber-400">{s.value}</p>
-                  <p className="text-white/60 text-[10px] sm:text-xs font-medium mt-0.5">{s.label}</p>
+                  <p className="text-2xl sm:text-2xl lg:text-3xl font-black text-amber-400">{s.value}</p>
+                  <p className="text-white/60 text-xs sm:text-xs font-medium mt-0.5">{s.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -555,7 +555,7 @@ function About({ dark }) {
             <motion.div
               variants={fadeUp}
               custom={0.3}
-              className={`absolute -bottom-5 -right-3 sm:-bottom-6 sm:-right-4 lg:-right-8 ${floatBg} rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-5 max-w-[160px] sm:max-w-[200px]`}
+              className={`absolute -bottom-5 right-0 sm:-bottom-6 sm:-right-4 lg:-right-8 ${floatBg} rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-5 max-w-[155px] sm:max-w-[200px]`}
             >
               <div className="flex items-center gap-2.5 mb-2">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-100 flex items-center justify-center">
@@ -574,7 +574,7 @@ function About({ dark }) {
           {/* Content */}
           <div className="order-1 lg:order-2">
             <SectionLabel text="About Us" dark={dark} />
-            <motion.h2 variants={fadeUp} className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black ${text} leading-tight mb-5 sm:mb-6`}>
+            <motion.h2 variants={fadeUp} className={`text-3xl sm:text-3xl lg:text-4xl xl:text-5xl font-black ${text} leading-tight mb-5 sm:mb-6`}>
               Bali's Most Trusted Hotel
               <span className="text-amber-500"> Amenities Partner</span>
             </motion.h2>
@@ -590,7 +590,7 @@ function About({ dark }) {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-6 sm:mt-8 grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
+            <motion.div variants={fadeUp} className="mt-6 sm:mt-8 grid grid-cols-2 gap-3 sm:gap-4">
               {[
                 { label: "Our Mission", desc: "Deliver quality hospitality products that elevate guest experiences." },
                 { label: "Our Vision", desc: "To be Indonesia's No.1 hotel amenities partner by 2030." },
@@ -636,7 +636,7 @@ function ProductCategories({ dark }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-16">
           <SectionLabel text="What We Offer" dark={dark} />
-          <motion.h2 variants={fadeUp} className={`text-2xl sm:text-3xl lg:text-5xl font-black ${text} leading-tight`}>
+          <motion.h2 variants={fadeUp} className={`text-3xl sm:text-3xl lg:text-5xl font-black ${text} leading-tight`}>
             Product Categories
           </motion.h2>
           <motion.p variants={fadeUp} className={`mt-3 sm:mt-4 ${muted} max-w-xl mx-auto text-sm sm:text-base`}>
@@ -673,14 +673,14 @@ function ProductCategories({ dark }) {
 
               {/* Body */}
               <div className="p-4 sm:p-5">
-                <h3 className={`font-black ${text} text-sm sm:text-base mb-2 leading-tight`}>{cat.name}</h3>
-                <p className={`${muted} text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4`}>{cat.description}</p>
+                <h3 className={`font-black ${text} text-base sm:text-base mb-2 leading-tight`}>{cat.name}</h3>
+                <p className={`${muted} text-sm sm:text-sm leading-relaxed mb-3 sm:mb-4`}>{cat.description}</p>
                 <div className="flex flex-wrap gap-1.5 mb-3 sm:mb-4">
                   {cat.items.slice(0, 3).map((item) => (
-                    <span key={item} className={`text-[10px] font-semibold ${tagBg} px-2 py-0.5 rounded-full`}>{item}</span>
+                    <span key={item} className={`text-xs font-semibold ${tagBg} px-2 py-0.5 rounded-full`}>{item}</span>
                   ))}
                   {cat.items.length > 3 && (
-                    <span className={`text-[10px] font-semibold ${tagBg} px-2 py-0.5 rounded-full`}>+{cat.items.length - 3}</span>
+                    <span className={`text-xs font-semibold ${tagBg} px-2 py-0.5 rounded-full`}>+{cat.items.length - 3}</span>
                   )}
                 </div>
                 <button
@@ -1000,7 +1000,7 @@ function FeaturedProducts({ dark, setSelectedProduct }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-12">
           <SectionLabel text="Our Products" dark={dark} />
-          <motion.h2 variants={fadeUp} className={`text-2xl sm:text-3xl lg:text-5xl font-black ${text} leading-tight`}>
+          <motion.h2 variants={fadeUp} className={`text-3xl sm:text-3xl lg:text-5xl font-black ${text} leading-tight`}>
             Featured Products
           </motion.h2>
           <motion.p variants={fadeUp} className={`mt-3 sm:mt-4 ${muted} max-w-xl mx-auto text-sm sm:text-base`}>
@@ -1024,7 +1024,7 @@ function FeaturedProducts({ dark, setSelectedProduct }) {
         </motion.div>
 
         {/* Product grid */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
           {filtered.map((product) => (
             <div
               key={product.id}
@@ -1051,11 +1051,11 @@ function FeaturedProducts({ dark, setSelectedProduct }) {
                 </div>
               </div>
               <div className="p-3 sm:p-4">
-                <h3 className={`font-bold ${text} text-xs sm:text-sm mb-1 leading-tight`}>{product.name}</h3>
-                <p className={`${muted} text-[10px] sm:text-xs leading-relaxed mb-2 sm:mb-3`}>{product.description}</p>
+                <h3 className={`font-bold ${text} text-sm sm:text-sm mb-1 leading-tight`}>{product.name}</h3>
+                <p className={`${muted} text-xs sm:text-xs leading-relaxed mb-2 sm:mb-3 line-clamp-2`}>{product.description}</p>
                 <button
                   onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
-                  className="text-[10px] sm:text-xs font-bold text-amber-600 hover:text-amber-500 flex items-center gap-1 group/link"
+                  className="text-xs sm:text-xs font-bold text-amber-600 hover:text-amber-500 flex items-center gap-1 group/link"
                 >
                   Enquire Now <ArrowRight size={11} className="transition-transform group-hover/link:translate-x-1" />
                 </button>
@@ -1099,7 +1099,7 @@ function WhyChooseUs({ dark }) {
             <span className="text-amber-400 text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase">Why Choose Us</span>
             <div className="h-px w-8 bg-amber-400/60" />
           </motion.div>
-          <motion.h2 variants={fadeUp} className="text-2xl sm:text-3xl lg:text-5xl font-black text-white leading-tight">
+          <motion.h2 variants={fadeUp} className="text-3xl sm:text-3xl lg:text-5xl font-black text-white leading-tight">
             The Kawan Baik
             <span className="text-amber-400"> Difference</span>
           </motion.h2>
@@ -1159,14 +1159,14 @@ function CTA() {
         <div className="absolute top-0 left-0 w-full h-full" style={{backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px"}} />
       </div>
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <motion.h2 variants={fadeUp} className="text-2xl sm:text-3xl lg:text-5xl font-black text-white leading-tight mb-4">
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-3xl lg:text-5xl font-black text-white leading-tight mb-4">
           Ready to Transform Your
           <br />Guest Experience?
         </motion.h2>
         <motion.p variants={fadeUp} className="text-white/80 text-sm sm:text-lg mb-8 sm:mb-10 max-w-xl mx-auto">
           Contact us today for a personalised quote. Fast response, no obligation — just a friendly conversation about your needs.
         </motion.p>
-        <motion.div variants={fadeUp} className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
+        <motion.div variants={fadeUp} className="flex flex-row flex-wrap gap-3 sm:gap-4 justify-center">
           <a
             href="https://wa.me/62881037366555?text=Hello%20PT%20Kawan%20Baik%20Bali%2C%20I%20would%20like%20to%20discuss%20hotel%20amenities%20supply."
             target="_blank"
@@ -1226,7 +1226,7 @@ function Contact({ dark }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-16">
           <SectionLabel text="Get In Touch" dark={dark} />
-          <motion.h2 variants={fadeUp} className={`text-2xl sm:text-3xl lg:text-5xl font-black ${text}`}>
+          <motion.h2 variants={fadeUp} className={`text-3xl sm:text-3xl lg:text-5xl font-black ${text}`}>
             Contact Us
           </motion.h2>
           <motion.p variants={fadeUp} className={`mt-3 sm:mt-4 ${muted} max-w-xl mx-auto text-sm sm:text-base`}>
@@ -1250,8 +1250,8 @@ function Contact({ dark }) {
                     {c.icon}
                   </div>
                   <div>
-                    <p className={`text-[10px] sm:text-xs font-semibold ${muted} uppercase tracking-wide`}>{c.label}</p>
-                    <p className={`font-semibold ${text} text-xs sm:text-sm mt-0.5`}>{c.value}</p>
+                    <p className={`text-xs sm:text-xs font-semibold ${muted} uppercase tracking-wide`}>{c.label}</p>
+                    <p className={`font-semibold ${text} text-sm sm:text-sm mt-0.5`}>{c.value}</p>
                   </div>
                 </a>
               ))}
@@ -1294,7 +1294,7 @@ function Contact({ dark }) {
                 { name: "hotel", label: "Hotel / Property Name", placeholder: "The Grand Bali Resort", type: "text" },
               ].map((field) => (
                 <div key={field.name}>
-                  <label className={`block text-[10px] sm:text-xs font-semibold ${labelStyle} mb-1.5 uppercase tracking-wide`}>{field.label}</label>
+                  <label className={`block text-xs sm:text-xs font-semibold ${labelStyle} mb-1.5 uppercase tracking-wide`}>{field.label}</label>
                   <input
                     type={field.type}
                     name={field.name}
@@ -1307,7 +1307,7 @@ function Contact({ dark }) {
                 </div>
               ))}
               <div>
-                <label className={`block text-[10px] sm:text-xs font-semibold ${labelStyle} mb-1.5 uppercase tracking-wide`}>Message</label>
+                <label className={`block text-xs sm:text-xs font-semibold ${labelStyle} mb-1.5 uppercase tracking-wide`}>Message</label>
                 <textarea
                   name="message"
                   rows={4}
@@ -1347,9 +1347,9 @@ function Footer({ dark }) {
   return (
     <footer className="bg-[#0d2137] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           {/* Brand */}
-          <div className="col-span-2 sm:col-span-2 lg:col-span-1">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-4 sm:mb-5">
               <img
                 src="/logo.png"
@@ -1385,7 +1385,7 @@ function Footer({ dark }) {
             <ul className="space-y-2 sm:space-y-3">
               {QUICK_LINKS.map((l) => (
                 <li key={l}>
-                  <a href={`#${l.toLowerCase().replace(" ", "-")}`} className="text-white/40 text-xs sm:text-sm hover:text-amber-400 transition-colors flex items-center gap-1.5 group">
+                  <a href={`#${l.toLowerCase().replace(" ", "-")}`} className="text-white/40 text-sm sm:text-sm hover:text-amber-400 transition-colors flex items-center gap-1.5 group">
                     <ChevronRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     {l}
                   </a>
@@ -1400,7 +1400,7 @@ function Footer({ dark }) {
             <ul className="space-y-2 sm:space-y-3">
               {PRODUCTS_LINKS.map((l) => (
                 <li key={l}>
-                  <a href="#categories" className="text-white/40 text-xs sm:text-sm hover:text-amber-400 transition-colors flex items-center gap-1.5 group">
+                  <a href="#categories" className="text-white/40 text-sm sm:text-sm hover:text-amber-400 transition-colors flex items-center gap-1.5 group">
                     <ChevronRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     {l}
                   </a>
@@ -1410,7 +1410,7 @@ function Footer({ dark }) {
           </div>
 
           {/* Contact */}
-          <div className="col-span-2 sm:col-span-2 lg:col-span-1">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-1">
             <h4 className="font-bold text-xs sm:text-sm text-white/80 mb-4 sm:mb-5 uppercase tracking-wider">Contact Info</h4>
             <div className="space-y-3 sm:space-y-4">
               {[
@@ -1418,7 +1418,7 @@ function Footer({ dark }) {
                 { icon: <Mail size={13} />, text: "hello@kawanbaikbali.com", href: "mailto:hello@kawanbaikbali.com" },
                 { icon: <MapPin size={13} />, text: "Kuta utara, Badung, Bali 80361", href: "#" },
               ].map((c) => (
-                <a key={c.text} href={c.href} className="flex items-start gap-2.5 sm:gap-3 text-white/40 text-xs sm:text-sm hover:text-white/70 transition-colors group">
+                <a key={c.text} href={c.href} className="flex items-start gap-2.5 sm:gap-3 text-white/40 text-sm sm:text-sm hover:text-white/70 transition-colors group">
                   <span className="mt-0.5 text-amber-400/60 shrink-0">{c.icon}</span>
                   {c.text}
                 </a>
@@ -1428,12 +1428,12 @@ function Footer({ dark }) {
         </div>
 
         <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-          <p className="text-white/30 text-[10px] sm:text-xs text-center sm:text-left">
+          <p className="text-white/30 text-xs sm:text-xs text-center sm:text-left">
             © {new Date().getFullYear()} PT Kawan Baik Bali. All rights reserved.
           </p>
           <div className="flex gap-4 sm:gap-6">
             {["Privacy Policy", "Terms of Service"].map((l) => (
-              <a key={l} href="#" className="text-white/30 text-[10px] sm:text-xs hover:text-white/60 transition-colors">{l}</a>
+              <a key={l} href="#" className="text-white/30 text-xs sm:text-xs hover:text-white/60 transition-colors">{l}</a>
             ))}
           </div>
         </div>
@@ -1492,7 +1492,7 @@ export default function App() {
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         html { scroll-behavior: smooth; }
         *, *::before, *::after { box-sizing: border-box; }
-        body { margin: 0; }
+        body { margin: 0; overflow-x: hidden; }
         ::selection { background: #c9a84c; color: #fff; }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: ${dark ? "#071526" : "#f0f0f0"}; }
