@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Phone, Mail, Globe, MapPin, Menu, X, ChevronRight,
@@ -36,7 +36,7 @@ const PRODUCT_CATEGORIES = [
     icon: <Droplets size={28} />,
     name: "Personal Care Essentials",
     description: "Premium shampoo, conditioner, shower gel, body lotion, and soap crafted for a luxurious in-room experience.",
-    image: "/images/cat-personal-care.jpg",
+    image: "/images/prod-01-shampoo-classic.jpg",
     items: ["Shampoo", "Conditioner", "Shower Gel", "Body Lotion", "Bar Soap"],
     color: "#1a3a5c",
     accent: "#2c6e8a",
@@ -46,7 +46,7 @@ const PRODUCT_CATEGORIES = [
     icon: <Shirt size={28} />,
     name: "Comfort Items",
     description: "Hotel-grade towels, plush bathrobes, and slippers designed to deliver superior softness and lasting durability.",
-    image: "/images/cat-comfort.jpg",
+    image: "/images/prod-14-hotel-slippers.jpg",
     items: ["Bath Towels", "Bathrobe", "Hotel Slippers", "Face Towel", "Bath Mat"],
     color: "#c9a84c",
     accent: "#e0b84e",
@@ -56,7 +56,7 @@ const PRODUCT_CATEGORIES = [
     icon: <Package size={28} />,
     name: "Convenience Goods",
     description: "Cotton buds, shower caps, combs, tissue, sewing kits, shoe shine, and all daily essentials guests expect.",
-    image: "/images/cat-convenience.jpg",
+    image: "/images/prod-16-shower-cap.jpg",
     items: ["Cotton Buds", "Shower Cap", "Comb", "Tissue", "Sewing Kit"],
     color: "#2c6e8a",
     accent: "#3d8ca8",
@@ -66,7 +66,7 @@ const PRODUCT_CATEGORIES = [
     icon: <Leaf size={28} />,
     name: "Eco-Friendly Solutions",
     description: "Sustainable, biodegradable amenity lines made from responsibly sourced materials — guests love them, the planet does too.",
-    image: "/images/cat-eco.jpg",
+    image: "/images/prod-11-hotel-soap.jpg",
     items: ["Bamboo Toothbrush", "Refillable Dispensers", "Natural Soap", "Organic Shampoo"],
     color: "#3a7d44",
     accent: "#4a9c56",
@@ -74,23 +74,23 @@ const PRODUCT_CATEGORIES = [
 ];
 
 const PRODUCTS = [
-  { id: 1,  name: "Shampoo Classic",          category: "Personal Care",    image: "/images/prod-02-shampoo.jpg",      description: "Hair shampoo with green tea extract, 25ml — classic formula for daily hotel use." },
-  { id: 2,  name: "Shampoo Aromatherapy",     category: "Personal Care",    image: "/images/prod-shampoo-botol.jpg",   description: "Aromatherapy shampoo with aloe vera extract, 25–30ml. Refreshing and nourishing." },
-  { id: 3,  name: "Hair Conditioner",         category: "Personal Care",    image: "/images/prod-conditioner.jpg",     description: "Hair conditioner classic with green tea, 25ml. Leaves hair smooth and manageable." },
-  { id: 4,  name: "Shower Gel Classic",       category: "Personal Care",    image: "/images/prod-06-shower-gel.jpg",   description: "Body shower gel with green tea, 25ml. Refreshing fragrance, gentle on skin." },
-  { id: 5,  name: "Shower Gel Aromatherapy",  category: "Personal Care",    image: "/images/prod-06b-shower-gel.jpg",  description: "Aromatherapy shower gel, 30ml. POM-certified, produced locally in Bali." },
-  { id: 6,  name: "Body Lotion Aromatherapy", category: "Personal Care",    image: "/images/prod-body-lotion.jpg",     description: "Moisturising body lotion with aromatherapy, 30ml. POM-certified, Bungan Jepun Bali." },
-  { id: 7,  name: "Body Lotion Classic",      category: "Personal Care",    image: "/images/prod-body-lotion2.jpg",    description: "Body lotion classic with green tea, 25ml. Smooth and hydrating for daily use." },
-  { id: 8,  name: "Bath Foam",                category: "Personal Care",    image: "/images/prod-bath-foam.jpg",       description: "Luxury bath foam in elegant blue bottle, 25ml. Fragrant and skin-friendly." },
-  { id: 9,  name: "Liquid Soap",              category: "Personal Care",    image: "/images/prod-liquid-soap.jpg",     description: "Gentle liquid soap in premium bottle, 25ml. POM-certified, made in Indonesia." },
-  { id: 10, name: "Bar Soap",                 category: "Personal Care",    image: "/images/prod-11-soap.jpg",         description: "Wrapped bar soap 15gr, HALAL-certified. Classic hotel presentation." },
-  { id: 11, name: "Hotel Soap",               category: "Personal Care",    image: "/images/prod-hotel-soap.jpg",      description: "Hotel soap bar 25gr, premium pleated wrap. HALAL-certified, elegant finish." },
-  { id: 12, name: "Bath Towel",               category: "Comfort Items",    image: null,                               description: "600 GSM 100% cotton bath towels with hotel-grade absorbency and durability." },
-  { id: 13, name: "Bathrobe",                 category: "Comfort Items",    image: null,                               description: "Ultra-soft 100% cotton terry bathrobe. Custom embroidery available." },
-  { id: 14, name: "Hotel Slippers",           category: "Comfort Items",    image: null,                               description: "Closed-toe or open-toe slippers with non-slip sole, elegant and durable." },
-  { id: 15, name: "Cotton Buds",              category: "Convenience Goods",image: null,                               description: "100% pure cotton buds, safely designed and individually sealed." },
-  { id: 16, name: "Shower Cap",               category: "Convenience Goods",image: null,                               description: "Waterproof PE shower cap, individually wrapped in elegant packaging." },
-  { id: 17, name: "Eco Bamboo Kit",           category: "Eco-Friendly",     image: null,                               description: "Bamboo toothbrush + biodegradable packaging — the sustainable amenity guests love." },
+  { id: 1,  name: "Shampoo Classic",          category: "Personal Care",     image: "/images/prod-01-shampoo-classic.jpg",            description: "Hair shampoo with green tea extract, 25ml — classic formula for daily hotel use." },
+  { id: 2,  name: "Shampoo Aromatherapy",     category: "Personal Care",     image: "/images/prod-02-shampoo-aromatherapy.jpg",       description: "Aromatherapy shampoo with aloe vera extract, 25–30ml. Refreshing and nourishing." },
+  { id: 3,  name: "Hair Conditioner",         category: "Personal Care",     image: "/images/prod-03-hair-conditioner.jpg",           description: "Hair conditioner classic with green tea, 25ml. Leaves hair smooth and manageable." },
+  { id: 4,  name: "Shower Gel Classic",       category: "Personal Care",     image: "/images/prod-04-shower-gel-classic.jpg",         description: "Body shower gel with green tea, 25ml. Refreshing fragrance, gentle on skin." },
+  { id: 5,  name: "Shower Gel Aromatherapy",  category: "Personal Care",     image: "/images/prod-05-shower-gel-aromatherapy.jpg",    description: "Aromatherapy shower gel, 30ml. POM-certified, produced locally in Bali." },
+  { id: 6,  name: "Body Lotion Aromatherapy", category: "Personal Care",     image: "/images/prod-06-body-lotion-aromatherapy.jpg",   description: "Moisturising body lotion with aromatherapy, 30ml. POM-certified, Bungan Jepun Bali." },
+  { id: 7,  name: "Body Lotion Classic",      category: "Personal Care",     image: "/images/prod-07-body-lotion-classic.jpg",        description: "Body lotion classic with green tea, 25ml. Smooth and hydrating for daily use." },
+  { id: 8,  name: "Bath Foam",                category: "Personal Care",     image: "/images/prod-08-bath-foam.jpg",                  description: "Luxury bath foam in elegant blue bottle, 25ml. Fragrant and skin-friendly." },
+  { id: 9,  name: "Liquid Soap",              category: "Personal Care",     image: "/images/prod-09-liquid-soap.jpg",                description: "Gentle liquid soap in premium bottle, 25ml. POM-certified, made in Indonesia." },
+  { id: 10, name: "Bar Soap",                 category: "Personal Care",     image: "/images/prod-10-bar-soap.jpg",                   description: "Wrapped bar soap 15gr, HALAL-certified. Classic hotel presentation." },
+  { id: 11, name: "Hotel Soap",               category: "Personal Care",     image: "/images/prod-11-hotel-soap.jpg",                 description: "Hotel soap bar 25gr, premium pleated wrap. HALAL-certified, elegant finish." },
+  { id: 12, name: "Bath Towel",               category: "Comfort Items",     image: "/images/prod-12-bath-towel.jpg",                 description: "600 GSM 100% cotton bath towels with hotel-grade absorbency and durability." },
+  { id: 13, name: "Bathrobe",                 category: "Comfort Items",     image: "/images/prod-13-bathrobe.jpg",                   description: "Ultra-soft 100% cotton terry bathrobe. Custom embroidery available." },
+  { id: 14, name: "Hotel Slippers",           category: "Comfort Items",     image: "/images/prod-14-hotel-slippers.jpg",             description: "Closed-toe or open-toe slippers with non-slip sole, elegant and durable." },
+  { id: 15, name: "Cotton Buds",              category: "Convenience Goods", image: "/images/prod-15-cotton-buds.jpg",                description: "100% pure cotton buds, safely designed and individually sealed." },
+  { id: 16, name: "Shower Cap",               category: "Convenience Goods", image: "/images/prod-16-shower-cap.jpg",                 description: "Waterproof PE shower cap, individually wrapped in elegant packaging." },
+  { id: 17, name: "Eco Bamboo Kit",           category: "Eco-Friendly",      image: "/images/prod-17-eco-bamboo-kit.jpg",             description: "Bamboo toothbrush + biodegradable packaging — the sustainable amenity guests love." },
 ];
 
 const WHY_ITEMS = [
@@ -109,13 +109,26 @@ const STATS = [
   { value: "99%", label: "Client Satisfaction" },
 ];
 
+// Gallery photos for About section
+const GALLERY_PHOTOS = [
+  "/images/prod-02-shampoo-aromatherapy.jpg",
+  "/images/prod-08-bath-foam.jpg",
+  "/images/prod-03-hair-conditioner.jpg",
+  "/images/prod-07-body-lotion-classic.jpg",
+];
+
 // ─── ANIMATION VARIANTS ──────────────────────────────────────────────────────
+// Lighter animations = smoother scroll performance
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 36 },
-  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] } }),
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+  }),
 };
-const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
+const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 
 // ─── PHOTO PLACEHOLDER ───────────────────────────────────────────────────────
 
@@ -136,7 +149,6 @@ function ProductImage({ src, alt, className = "", style = {}, dark }) {
     );
   }
 
-  // Fallback placeholder
   return (
     <div
       className={`flex items-center justify-center select-none ${className}`}
@@ -166,12 +178,19 @@ function ProductImage({ src, alt, className = "", style = {}, dark }) {
 }
 
 // ─── SECTION WRAPPER ─────────────────────────────────────────────────────────
+// Using once:true + larger margin so animations fire before user reaches them
+// This prevents janky "catch-up" animations during fast scroll
 
 function Section({ id, className = "", children }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px 0px -60px 0px" });
   return (
-    <section id={id} className={className} ref={ref}>
+    <section
+      id={id}
+      className={className}
+      ref={ref}
+      style={{ contain: "layout style" }}
+    >
       <motion.div
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
@@ -225,9 +244,19 @@ function Header({ dark, setDark }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#home");
 
+  // Throttled scroll listener — much smoother than firing on every pixel
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -249,13 +278,18 @@ function Header({ dark, setDark }) {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled ? bgScrolled : "bg-transparent"
       }`}
+      style={{ willChange: "background-color, box-shadow" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
           {/* Logo */}
           <button onClick={() => handleNav("#home")} className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#1a3a5c] to-[#2c6e8a] flex items-center justify-center shadow-md">
-              <span className="text-amber-400 font-black text-base sm:text-lg leading-none">K</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-gradient-to-br from-[#1a3a5c] to-[#2c6e8a] flex items-center justify-center shadow-md">
+              <img
+               src="/logo.png"
+               alt="Logo"
+                 className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+              />
             </div>
             <div className="text-left">
               <p className={`font-black text-sm sm:text-base leading-none tracking-tight transition-colors ${
@@ -367,22 +401,21 @@ function Header({ dark, setDark }) {
 function Hero({ dark }) {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-     <div className="absolute inset-0 z-0">
-   <img
-      src="/hero.jpeg"
-      alt="Hero Background"
-      className="w-full h-full object-cover"
-      style={{ minHeight: "100vh" }}
-      loading="eager"
-      fetchPriority="high"
-    />
-    
-  <div className="absolute inset-0 bg-gradient-to-r from-[#0d2137]/90 via-[#1a3a5c]/75 to-[#1a3a5c]/30" />
-  <div className="absolute inset-0 bg-gradient-to-t from-[#0d2137]/60 via-transparent to-transparent" />
-</div>
+      {/* Background — no parallax, just fixed cover = smooth */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/hero.jpeg"
+          alt="Hero Background"
+          className="w-full h-full object-cover"
+          style={{ minHeight: "100vh" }}
+          loading="eager"
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d2137]/90 via-[#1a3a5c]/75 to-[#1a3a5c]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2137]/60 via-transparent to-transparent" />
+      </div>
 
-      {/* Decorative */}
+      {/* Decorative — CSS animation only, no JS */}
       <div className="absolute top-24 right-4 sm:right-10 lg:right-32 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 rounded-full border border-amber-400/20 animate-pulse" />
       <div className="absolute top-32 right-10 sm:right-20 lg:right-40 w-20 sm:w-32 lg:w-40 h-20 sm:h-32 lg:h-40 rounded-full border border-amber-400/10" />
 
@@ -472,6 +505,16 @@ function Hero({ dark }) {
 // ─── ABOUT ────────────────────────────────────────────────────────────────────
 
 function About({ dark }) {
+  const [activePhoto, setActivePhoto] = useState(0);
+
+  // Auto-rotate gallery
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActivePhoto((p) => (p + 1) % GALLERY_PHOTOS.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
+
   const bg = dark ? "bg-[#0d1f33]" : "bg-white";
   const text = dark ? "text-white" : "text-[#1a3a5c]";
   const muted = dark ? "text-white/60" : "text-slate-600";
@@ -482,11 +525,33 @@ function About({ dark }) {
     <Section id="about" className={`py-16 sm:py-20 lg:py-32 ${bg} transition-colors duration-300`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Image placeholder */}
+          {/* Gallery */}
           <motion.div variants={fadeUp} className="relative order-2 lg:order-1">
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-              <ProductImage src={null} alt="About PT Kawan Baik Bali" dark={dark} className="w-full h-full" />
+              {GALLERY_PHOTOS.map((photo, i) => (
+                <img
+                  key={photo}
+                  src={photo}
+                  alt={`PT Kawan Baik Bali ${i + 1}`}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                  style={{ opacity: activePhoto === i ? 1 : 0 }}
+                />
+              ))}
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a5c]/40 via-transparent" />
+              {/* Dots */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {GALLERY_PHOTOS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActivePhoto(i)}
+                    className={`rounded-full transition-all duration-300 ${
+                      activePhoto === i ? "w-5 h-1.5 bg-amber-400" : "w-1.5 h-1.5 bg-white/50 hover:bg-white/80"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
             {/* Floating card */}
             <motion.div
@@ -545,7 +610,7 @@ function About({ dark }) {
             <motion.div variants={fadeUp} className="mt-6 sm:mt-8">
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center gap-2 text-[#1a3a5c] dark:text-amber-400 font-bold text-sm group"
+                className="inline-flex items-center gap-2 font-bold text-sm group"
                 style={{ color: dark ? "#f59e0b" : "#1a3a5c" }}
               >
                 Get in Touch
@@ -587,11 +652,18 @@ function ProductCategories({ dark }) {
               key={cat.id}
               variants={fadeUp}
               custom={i}
-              className={`group rounded-2xl sm:rounded-3xl overflow-hidden ${cardBg} shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer`}
+              className={`group rounded-2xl sm:rounded-3xl overflow-hidden ${cardBg} shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer`}
+              style={{ willChange: "transform" }}
             >
-              {/* Photo placeholder */}
+              {/* Photo */}
               <div className="relative h-40 sm:h-48 overflow-hidden">
-                <ProductImage src={cat.image} alt={cat.name} dark={dark} className="w-full h-full group-hover:scale-110 transition-transform duration-700" />
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                 <div
                   className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-white"
@@ -668,7 +740,7 @@ function FeaturedProducts({ dark }) {
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                 filter === cat ? filterActive : filterInactive
               }`}
             >
@@ -677,35 +749,41 @@ function FeaturedProducts({ dark }) {
           ))}
         </motion.div>
 
-        {/* Product grid */}
+        {/* Product grid — no motion on individual cards = smoother scroll */}
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {filtered.map((product) => (
-              <div
-                key={product.id}
-                className={`group rounded-xl sm:rounded-2xl overflow-hidden ${cardBg} border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
-              >
-                <div className="relative h-40 sm:h-52 overflow-hidden">
-                  <ProductImage src={product.image} alt={product.name} dark={dark} className="w-full h-full group-hover:scale-105 transition-transform duration-600" />
-                  <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3">
-                    <span className={`text-[9px] sm:text-[10px] font-bold ${tagBg} backdrop-blur-sm px-2 py-0.5 sm:py-1 rounded-full shadow`}>
-                      {product.category}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-3 sm:p-4">
-                  <h3 className={`font-bold ${text} text-xs sm:text-sm mb-1 leading-tight`}>{product.name}</h3>
-                  <p className={`${muted} text-[10px] sm:text-xs leading-relaxed mb-2 sm:mb-3`}>{product.description}</p>
-                  <a
-                    href={`https://wa.me/62881037366555?text=Hi,%20I%20am%20interested%20in%20${encodeURIComponent(product.name)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] sm:text-xs font-bold text-amber-600 hover:text-amber-500 flex items-center gap-1 group/link"
-                  >
-                    Enquire Now <ArrowRight size={11} className="transition-transform group-hover/link:translate-x-1" />
-                  </a>
+          {filtered.map((product) => (
+            <div
+              key={product.id}
+              className={`group rounded-xl sm:rounded-2xl overflow-hidden ${cardBg} border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200`}
+              style={{ willChange: "transform" }}
+            >
+              <div className="relative h-40 sm:h-52 overflow-hidden bg-slate-100">
+                <ProductImage
+                  src={product.image}
+                  alt={product.name}
+                  dark={dark}
+                  className="w-full h-full group-hover:scale-105 transition-transform duration-400"
+                />
+                <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3">
+                  <span className={`text-[9px] sm:text-[10px] font-bold ${tagBg} backdrop-blur-sm px-2 py-0.5 sm:py-1 rounded-full shadow`}>
+                    {product.category}
+                  </span>
                 </div>
               </div>
-            ))}
+              <div className="p-3 sm:p-4">
+                <h3 className={`font-bold ${text} text-xs sm:text-sm mb-1 leading-tight`}>{product.name}</h3>
+                <p className={`${muted} text-[10px] sm:text-xs leading-relaxed mb-2 sm:mb-3`}>{product.description}</p>
+                <a
+                  href={`https://wa.me/62881037366555?text=Hi,%20I%20am%20interested%20in%20${encodeURIComponent(product.name)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] sm:text-xs font-bold text-amber-600 hover:text-amber-500 flex items-center gap-1 group/link"
+                >
+                  Enquire Now <ArrowRight size={11} className="transition-transform group-hover/link:translate-x-1" />
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
 
         <motion.div variants={fadeUp} className="mt-10 sm:mt-12 text-center">
@@ -713,7 +791,7 @@ function FeaturedProducts({ dark }) {
             href="https://wa.me/62881037366555?text=Hello%2C%20I%20would%20like%20to%20see%20your%20full%20product%20catalogue."
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border-2 font-bold hover:-translate-y-0.5 transition-all duration-300 text-sm sm:text-base ${
+            className={`inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border-2 font-bold hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base ${
               dark
                 ? "border-amber-500 text-amber-400 hover:bg-amber-500/10"
                 : "border-[#1a3a5c] text-[#1a3a5c] hover:bg-[#1a3a5c] hover:text-white"
@@ -758,7 +836,7 @@ function WhyChooseUs({ dark }) {
               key={item.title}
               variants={fadeUp}
               custom={i}
-              className="group p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-white/[0.05] border border-white/10 hover:bg-white/[0.09] hover:border-amber-400/30 transition-all duration-400"
+              className="group p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-white/[0.05] border border-white/10 hover:bg-white/[0.09] hover:border-amber-400/30 transition-all duration-300"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/20 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4 sm:mb-5 group-hover:bg-amber-500/30 transition-colors">
                 {item.icon}
@@ -768,6 +846,27 @@ function WhyChooseUs({ dark }) {
             </motion.div>
           ))}
         </div>
+
+        {/* Photo strip */}
+        <motion.div variants={fadeUp} className="mt-12 sm:mt-16 grid grid-cols-4 gap-2 sm:gap-3 rounded-2xl overflow-hidden">
+          {[
+            "/images/prod-04-shower-gel-classic.jpg",
+            "/images/prod-05-shower-gel-aromatherapy.jpg",
+            "/images/prod-10-bar-soap.jpg",
+            "/images/prod-09-liquid-soap.jpg",
+          ].map((src, i) => (
+            <div key={i} className="relative aspect-square overflow-hidden rounded-xl">
+              <img
+                src={src}
+                alt={`Kawan Baik Bali ${i}`}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-[#1a3a5c]/30" />
+            </div>
+          ))}
+        </motion.div>
       </div>
     </Section>
   );
@@ -1067,8 +1166,17 @@ function Footer({ dark }) {
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const fn = () => setVisible(window.scrollY > 400);
-    window.addEventListener("scroll", fn);
+    let ticking = false;
+    const fn = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setVisible(window.scrollY > 400);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
   return (
@@ -1080,6 +1188,7 @@ function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-xl hover:shadow-amber-500/40 hover:-translate-y-1 transition-all flex items-center justify-center"
+          style={{ willChange: "transform, opacity" }}
         >
           <ChevronRight size={18} className="-rotate-90" />
         </motion.button>
@@ -1108,7 +1217,9 @@ export default function App() {
         ::-webkit-scrollbar-track { background: ${dark ? "#071526" : "#f0f0f0"}; }
         ::-webkit-scrollbar-thumb { background: ${dark ? "#c9a84c" : "#1a3a5c"}; border-radius: 10px; }
 
-        /* Responsive xs breakpoint helper */
+        /* GPU-accelerate all hover transitions */
+        img { transform: translateZ(0); }
+
         @media (min-width: 480px) {
           .xs\\:flex-row { flex-direction: row; }
           .xs\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
