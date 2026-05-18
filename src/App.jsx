@@ -128,6 +128,8 @@ function ProductImage({ src, alt, className = "", style = {}, dark }) {
         src={src}
         alt={alt}
         className={className}
+        loading="lazy"
+        decoding="async"
         style={{ objectFit: "cover", width: "100%", height: "100%", ...style }}
         onError={() => setError(true)}
       />
@@ -167,18 +169,17 @@ function ProductImage({ src, alt, className = "", style = {}, dark }) {
 
 function Section({ id, className = "", children }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <motion.section
-      id={id}
-      ref={ref}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={stagger}
-      className={className}
-    >
-      {children}
-    </motion.section>
+    <section id={id} className={className} ref={ref}>
+      <motion.div
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={stagger}
+      >
+        {children}
+      </motion.div>
+    </section>
   );
 }
 
@@ -233,7 +234,10 @@ function Header({ dark, setDark }) {
   const handleNav = (href) => {
     setActive(href);
     setOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    const id = href.replace("#", "");
+    setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
 
   const bgScrolled = dark
@@ -370,15 +374,17 @@ function Hero({ dark }) {
       alt="Hero Background"
       className="w-full h-full object-cover"
       style={{ minHeight: "100vh" }}
+      loading="eager"
+      fetchPriority="high"
     />
     
-  <div className="absolute inset-0 bg-gradient-to-r from-[#0d2137]/90 via-[#1a3a5c]/75 to-[#1a3a5c]/30 pointer-events-none" />
-  <div className="absolute inset-0 bg-gradient-to-t from-[#0d2137]/60 via-transparent to-transparent pointer-events-none" />
+  <div className="absolute inset-0 bg-gradient-to-r from-[#0d2137]/90 via-[#1a3a5c]/75 to-[#1a3a5c]/30" />
+  <div className="absolute inset-0 bg-gradient-to-t from-[#0d2137]/60 via-transparent to-transparent" />
 </div>
 
       {/* Decorative */}
-      <div className="absolute top-24 right-4 sm:right-10 lg:right-32 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 rounded-full border border-amber-400/20 animate-pulse pointer-events-none" />
-      <div className="absolute top-32 right-10 sm:right-20 lg:right-40 w-20 sm:w-32 lg:w-40 h-20 sm:h-32 lg:h-40 rounded-full border border-amber-400/10 pointer-events-none" />
+      <div className="absolute top-24 right-4 sm:right-10 lg:right-32 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 rounded-full border border-amber-400/20 animate-pulse" />
+      <div className="absolute top-32 right-10 sm:right-20 lg:right-40 w-20 sm:w-32 lg:w-40 h-20 sm:h-32 lg:h-40 rounded-full border border-amber-400/10" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 sm:pt-24 sm:pb-36">
         <div className="max-w-3xl">
@@ -423,13 +429,13 @@ function Hero({ dark }) {
             className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4"
           >
             <button
-              onClick={() => document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold shadow-xl shadow-amber-900/30 hover:shadow-amber-500/50 hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base"
             >
               View Products <ArrowRight size={16} />
             </button>
             <button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full border-2 border-white/40 text-white font-bold hover:bg-white/10 hover:border-white/70 hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base"
             >
               Contact Us
@@ -538,7 +544,7 @@ function About({ dark }) {
 
             <motion.div variants={fadeUp} className="mt-6 sm:mt-8">
               <button
-                onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="inline-flex items-center gap-2 text-[#1a3a5c] dark:text-amber-400 font-bold text-sm group"
                 style={{ color: dark ? "#f59e0b" : "#1a3a5c" }}
               >
@@ -608,7 +614,7 @@ function ProductCategories({ dark }) {
                   )}
                 </div>
                 <button
-                  onClick={() => document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
                   className="flex items-center gap-1 text-sm font-bold group/btn"
                   style={{ color: cat.color }}
                 >
@@ -673,16 +679,10 @@ function FeaturedProducts({ dark }) {
 
         {/* Product grid */}
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          <AnimatePresence mode="popLayout">
             {filtered.map((product) => (
-              <motion.div
+              <div
                 key={product.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.35 }}
-                className={`group rounded-xl sm:rounded-2xl overflow-hidden ${cardBg} border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-400`}
+                className={`group rounded-xl sm:rounded-2xl overflow-hidden ${cardBg} border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
               >
                 <div className="relative h-40 sm:h-52 overflow-hidden">
                   <ProductImage src={product.image} alt={product.name} dark={dark} className="w-full h-full group-hover:scale-105 transition-transform duration-600" />
@@ -704,9 +704,8 @@ function FeaturedProducts({ dark }) {
                     Enquire Now <ArrowRight size={11} className="transition-transform group-hover/link:translate-x-1" />
                   </a>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
         </div>
 
         <motion.div variants={fadeUp} className="mt-10 sm:mt-12 text-center">
@@ -801,7 +800,7 @@ function CTA() {
             Chat on WhatsApp
           </a>
           <button
-            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full border-2 border-white text-white font-black hover:bg-white hover:text-amber-600 transition-all duration-300 text-sm sm:text-base"
           >
             Send Enquiry
