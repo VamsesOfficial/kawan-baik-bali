@@ -729,17 +729,14 @@ function ProductModal({ product, dark, onClose }) {
         alignItems: "center",
         justifyContent: "center",
         padding: "12px",
-        // Glassmorphism backdrop
-        background: "rgba(4, 12, 24, 0.65)",
-        backdropFilter: "blur(16px) saturate(1.4)",
-        WebkitBackdropFilter: "blur(16px) saturate(1.4)",
+        background: "rgba(4, 12, 24, 0.82)",
       }}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 18 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 18 }}
-        transition={{ duration: 0.30, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        transition={{ duration: 0.18, ease: "easeOut" }}
         onClick={(e) => e.stopPropagation()}
         style={{
           position: "relative",
@@ -765,10 +762,8 @@ function ProductModal({ product, dark, onClose }) {
         }}
       >
         {/* ── Floating Close Button ── */}
-        <motion.button
+        <button
           onClick={onClose}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.93 }}
           aria-label="Close"
           style={{
             position: "absolute",
@@ -790,7 +785,7 @@ function ProductModal({ product, dark, onClose }) {
           }}
         >
           <X size={15} color="#fff" />
-        </motion.button>
+        </button>
 
         {/* ── Hero Image ── */}
         <div style={{ position: "relative", height: "clamp(220px, 40vw, 400px)", overflow: "hidden", borderRadius: "28px 28px 0 0" }}>
@@ -818,18 +813,13 @@ function ProductModal({ product, dark, onClose }) {
 
           {/* Category pill — bottom left of image */}
           <div style={{ position: "absolute", bottom: "16px", left: "18px" }}>
-            <motion.span
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.18, duration: 0.28 }}
+            <span
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "5px",
                 background: "rgba(201,168,76,0.22)",
                 border: "1px solid rgba(201,168,76,0.50)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
                 color: "#e8c96a",
                 fontSize: "10px",
                 fontWeight: 700,
@@ -840,7 +830,7 @@ function ProductModal({ product, dark, onClose }) {
               }}
             >
               {product.category}
-            </motion.span>
+            </span>
           </div>
         </div>
 
@@ -848,11 +838,7 @@ function ProductModal({ product, dark, onClose }) {
         <div style={{ padding: "clamp(20px, 4vw, 32px)", display: "flex", flexDirection: "column", gap: "18px" }}>
 
           {/* Header row */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.10, duration: 0.28 }}
-          >
+          <div>
             {/* Category label */}
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
               <div style={{ width: "20px", height: "1.5px", background: "linear-gradient(90deg, #c9a84c, #e0b84e)" }} />
@@ -871,7 +857,7 @@ function ProductModal({ product, dark, onClose }) {
             }}>
               {product.name}
             </h2>
-          </motion.div>
+          </div>
 
           {/* Divider */}
           <div style={{
@@ -882,10 +868,7 @@ function ProductModal({ product, dark, onClose }) {
           }} />
 
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.16, duration: 0.28 }}
+          <p
             style={{
               margin: 0,
               fontSize: "clamp(13px, 2vw, 15px)",
@@ -894,15 +877,10 @@ function ProductModal({ product, dark, onClose }) {
             }}
           >
             {product.description}
-          </motion.p>
+          </p>
 
           {/* Badges row */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.22, duration: 0.28 }}
-            style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
-          >
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
             {["Hotel Grade", "Indonesia Made", "In Stock"].map((tag) => (
               <span key={tag} style={{
                 fontSize: "10px",
@@ -917,7 +895,7 @@ function ProductModal({ product, dark, onClose }) {
                 {tag}
               </span>
             ))}
-          </motion.div>
+          </div>
 
           {/* Divider */}
           <div style={{
@@ -926,12 +904,7 @@ function ProductModal({ product, dark, onClose }) {
           }} />
 
           {/* Action buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.26, duration: 0.28 }}
-            style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
-          >
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
             {/* Primary — Enquire Now */}
             <a
               href={`https://wa.me/62881037366555?text=Hi,%20I%20am%20interested%20in%20${encodeURIComponent(product.name)}`}
@@ -989,7 +962,7 @@ function ProductModal({ product, dark, onClose }) {
               <X size={13} />
               Close
             </button>
-          </motion.div>
+          </div>
         </div>
 
         {/* Bottom ambient glow bar */}
