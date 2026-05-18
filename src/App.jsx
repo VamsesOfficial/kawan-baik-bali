@@ -284,13 +284,11 @@ function Header({ dark, setDark }) {
         <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
           {/* Logo */}
           <button onClick={() => handleNav("#home")} className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-gradient-to-br from-[#1a3a5c] to-[#2c6e8a] flex items-center justify-center shadow-md">
-              <img
+            <img
                src="/logo.png"
                alt="Logo"
-                 className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+                 className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
               />
-            </div>
             <div className="text-left">
               <p className={`font-black text-sm sm:text-base leading-none tracking-tight transition-colors ${
                 scrolled ? (dark ? "text-white" : "text-[#1a3a5c]") : "text-white"
@@ -1073,8 +1071,11 @@ function Footer({ dark }) {
           {/* Brand */}
           <div className="col-span-2 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-4 sm:mb-5">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#1a3a5c] to-[#2c6e8a] border border-white/10 flex items-center justify-center">
-                <span className="text-amber-400 font-black text-base sm:text-lg">K</span>
+              <img
+                src="/logo.png"
+                alt="Logo"
+                className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+              />
               </div>
               <div>
                 <p className="font-black text-sm sm:text-base leading-none">Kawan Baik Bali</p>
@@ -1156,7 +1157,6 @@ function Footer({ dark }) {
             ))}
           </div>
         </div>
-      </div>
     </footer>
   );
 }
