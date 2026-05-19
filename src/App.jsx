@@ -102,12 +102,6 @@ const WHY_ITEMS = [
   { icon: <Heart size={24} />, title: "Trusted Partnership", desc: "We build long-term relationships — not just transactions. Our clients return because we genuinely care about their success." },
 ];
 
-const STATS = [
-  { value: "500+", label: "Hotels Served" },
-  { value: "50+", label: "Product Lines" },
-  { value: "10+", label: "Years Experience" },
-  { value: "99%", label: "Client Satisfaction" },
-];
 
 // Gallery photos for About section
 const GALLERY_PHOTOS = [
@@ -450,7 +444,7 @@ function Hero({ dark }) {
             transition={{ duration: 0.7, delay: 0.5 }}
             className="text-base sm:text-lg lg:text-xl text-white/75 leading-relaxed mb-8 sm:mb-10 max-w-xl"
           >
-            Enhancing guest experiences with quality, luxury, and sustainability — trusted by 500+ hotels across Bali and Indonesia.
+            Enhancing guest experiences with quality, luxury, and sustainability
           </motion.p>
 
           <motion.div
@@ -472,28 +466,6 @@ function Hero({ dark }) {
               Contact Us
             </button>
           </motion.div>
-        </div>
-      </div>
-
-      {/* Stats bar */}
-      <div className="absolute bottom-0 left-0 right-0 z-10">
-        <div className="bg-white/10 backdrop-blur-md border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {STATS.map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 + i * 0.1 }}
-                  className="text-center"
-                >
-                  <p className="text-2xl sm:text-2xl lg:text-3xl font-black text-amber-400">{s.value}</p>
-                  <p className="text-white/60 text-xs sm:text-xs font-medium mt-0.5">{s.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -583,7 +555,7 @@ function About({ dark }) {
                 <strong className={text}>PT Kawan Baik Bali</strong> is a leading hospitality supply company headquartered in Bali, Indonesia. We specialise in providing comprehensive hotel amenities and hospitality equipment for hotels, resorts, villas, serviced apartments, and spas across the archipelago.
               </p>
               <p>
-                Founded with a commitment to quality and partnership, we have grown to serve over 500 properties — from boutique guesthouses to 5-star international resorts.
+                Founded with a commitment to quality and partnership, from boutique guesthouses to 5-star international resorts.
               </p>
               <p>
                 We believe the right amenities tell your guests: <em>"We care."</em> Our mission is to help every property in Indonesia deliver that experience — affordably, reliably, and beautifully.
@@ -1216,7 +1188,7 @@ function Contact({ dark }) {
 
   const CONTACT_INFO = [
     { icon: <Phone size={18} />, label: "Phone", value: "+62 8810 3736 6555", href: "tel:+62881037366555" },
-    { icon: <Mail size={18} />, label: "Email", value: "hello@kawanbaikbali.com", href: "mailto:hello@kawanbaikbali.com" },
+    { icon: <Mail size={18} />, label: "Email", value: "kawanbaik.bali@gmail.com", href: "mailto:kawanbaik.bali@gmail.com" },
     { icon: <Globe size={18} />, label: "Website", value: "www.kawanbaikbali.com", href: "https://kawanbaikbali.com" },
     { icon: <MapPin size={18} />, label: "Address", value: "Blk. A3 No.31, Kerobokan Kaja, Kec. Kuta Utara, Kabupaten Badung, Bali 80361", href: "#" },
   ];
@@ -1415,7 +1387,7 @@ function Footer({ dark }) {
             <div className="space-y-3 sm:space-y-4">
               {[
                 { icon: <Phone size={13} />, text: "+62 8810-3736-6555", href: "tel:+62881037366555" },
-                { icon: <Mail size={13} />, text: "hello@kawanbaikbali.com", href: "mailto:hello@kawanbaikbali.com" },
+                { icon: <Mail size={13} />, text: "kawanbaik.bali@gmail.com", href: "mailto:kawanbaik.bali@gmail.com" },
                 { icon: <MapPin size={13} />, text: "Kuta utara, Badung, Bali 80361", href: "#" },
               ].map((c) => (
                 <a key={c.text} href={c.href} className="flex items-start gap-2.5 sm:gap-3 text-white/40 text-sm sm:text-sm hover:text-white/70 transition-colors group">
