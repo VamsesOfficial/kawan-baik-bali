@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@prerenderer/prerenderer": "^1.2.5",
+    "@prerenderer/renderer-jsdom": "^1.1.9",
     "framer-motion": "^12.0.0",
     "lucide-react": "^0.542.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.15.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0",

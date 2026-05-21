@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+<<<<<<< HEAD
+=======
+Disallow: /api/
+Disallow: /_vercel/
+
+>>>>>>> 7b7674e (update website)
 Sitemap: https://www.kawanbaikbali.com/sitemap.xml
