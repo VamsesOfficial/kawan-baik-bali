@@ -280,6 +280,91 @@ function FeaturedCategories({ dark }) {
   );
 }
 
+
+// ─── MAP SECTION ─────────────────────────────────────────────────────────────
+
+function MapSection({ dark }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const text = dark ? "text-white" : "text-[#1a3a5c]";
+  const muted = dark ? "text-white/50" : "text-slate-500";
+
+  return (
+    <Section
+      id="location"
+      className={`py-14 sm:py-20 transition-colors duration-300 ${dark ? "bg-[#0d1f33]" : "bg-[#f8f9fc]"}`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+        >
+          {/* Text side */}
+          <div>
+            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
+              <div className="h-px w-8 bg-amber-500" />
+              <span className="text-amber-600 text-xs font-bold tracking-[0.25em] uppercase">Our Location</span>
+            </motion.div>
+            <motion.h2 variants={fadeUp} className={`text-3xl sm:text-4xl font-black ${text} leading-tight mb-4`}>
+              Visit Our Office<br />in Bali
+            </motion.h2>
+            <motion.p variants={fadeUp} className={`${muted} text-sm sm:text-base leading-relaxed mb-6`}>
+              Kami berlokasi di Kerobokan Kaja, Kuta Utara — mudah dijangkau dari kawasan Seminyak, Canggu, dan Denpasar. Tim kami siap menyambut kunjungan Anda untuk diskusi kebutuhan hotel amenities.
+            </motion.p>
+            <motion.div variants={fadeUp} className="space-y-3">
+              <div className={`flex items-start gap-3 text-sm ${muted}`}>
+                <span className="text-amber-500 mt-0.5">📍</span>
+                <span>Blk. A3 No.31, Kerobokan Kaja, Kec. Kuta Utara,<br />Kabupaten Badung, Bali 80361</span>
+              </div>
+              <div className={`flex items-center gap-3 text-sm ${muted}`}>
+                <span className="text-amber-500">📞</span>
+                <a href="tel:+62881037366555" className="hover:text-amber-500 transition-colors">+62 8810 3736 6555</a>
+              </div>
+              <div className={`flex items-center gap-3 text-sm ${muted}`}>
+                <span className="text-amber-500">✉️</span>
+                <a href="mailto:kawanbaik.bali@gmail.com" className="hover:text-amber-500 transition-colors">kawanbaik.bali@gmail.com</a>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="mt-7">
+              <a
+                href="https://maps.google.com/?q=Kawan+Baik+Bali"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-bold text-sm hover:-translate-y-0.5 transition-all duration-200 ${
+                  dark
+                    ? "border-amber-500 text-amber-400 hover:bg-amber-500/10"
+                    : "border-[#1a3a5c] text-[#1a3a5c] hover:bg-[#1a3a5c] hover:text-white"
+                }`}
+              >
+                Open in Google Maps <ArrowRight size={14} />
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Map side */}
+          <motion.div variants={fadeUp} className="w-full">
+            <div className={`rounded-2xl overflow-hidden shadow-xl border ${dark ? "border-white/10" : "border-slate-200"}`} style={{ height: "380px" }}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.6160619548473!2d115.16478057433676!3d-8.632806687760878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239002f2a6e75%3A0xbc7b96b8221e62de!2sKawan%20Baik%20Bali!5e0!3m2!1sid!2sid!4v1779453064729!5m2!1sid!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Kawan Baik Bali Office Location"
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </Section>
+  );
+}
+
 // ─── CTA SECTION ─────────────────────────────────────────────────────────────
 
 function CTASection() {
@@ -333,6 +418,7 @@ export default function HomePage({ dark }) {
         <Hero dark={dark} />
         <AboutSnippet dark={dark} />
         <FeaturedCategories dark={dark} />
+        <MapSection dark={dark} />
         <CTASection />
       </main>
     </>
