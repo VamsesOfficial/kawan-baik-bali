@@ -12,14 +12,13 @@ const PRODUCT_LINKS = [
   { label: "Personal Care Essentials", to: "/products/personal-care" },
   { label: "Comfort Items",            to: "/products/comfort-items" },
   { label: "Convenience Goods",        to: "/products/convenience-goods" },
-  { label: "Eco-Friendly Solutions",   to: "/products/eco-friendly" },
+  { label: "Eco Material",             to: "/products/eco-material" },
+  { label: "Hotel Linen & Bedding",    to: "/products/hotel-linen-bedding" },
 ];
 
 const SOCIAL = [
   { icon: <Instagram size={16} />, href: "https://www.instagram.com/kawanbaikbali/", label: "Instagram" },
   { icon: <Facebook size={16} />,  href: "https://www.facebook.com/share/1Hix42FsyX/",  label: "Facebook" },
-  { icon: <Linkedin size={16} />,  href: "#",                                          label: "LinkedIn" },
-  { icon: <Twitter size={16} />,   href: "#",                                          label: "Twitter" },
 ];
 
 export default function Footer() {
@@ -106,9 +105,8 @@ export default function Footer() {
             © {new Date().getFullYear()} PT Kawan Baik Bali. All rights reserved.
           </p>
           <div className="flex gap-4 sm:gap-6">
-            {["Privacy Policy", "Terms of Service"].map((l) => (
-              <a key={l} href="#" className="text-white/30 text-xs hover:text-white/60 transition-colors">{l}</a>
-            ))}
+            <Link to="/privacy-policy" className="text-white/30 text-xs hover:text-white/60 transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-white/30 text-xs hover:text-white/60 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

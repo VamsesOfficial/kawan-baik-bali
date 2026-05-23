@@ -12,6 +12,8 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProductGalleryPage from "./pages/ProductGalleryPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
 
 function useDarkMode() {
   const [dark, setDark] = useState(() => {
@@ -53,6 +55,8 @@ function AppLayout({ dark, setDark }) {
         <Route path="/products/:slug"                element={<CategoryPage dark={dark} />} />
         <Route path="/about"                         element={<AboutPage dark={dark} />} />
         <Route path="/contact"                       element={<ContactPage dark={dark} />} />
+        <Route path="/privacy-policy"                element={<PrivacyPolicyPage dark={dark} />} />
+        <Route path="/terms-of-service"                element={<TermsOfServicePage dark={dark} />} />
         <Route path="*"                              element={<NotFoundPage dark={dark} />} />
       </Routes>
 
