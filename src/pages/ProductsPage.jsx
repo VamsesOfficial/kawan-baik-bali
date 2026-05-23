@@ -135,7 +135,7 @@ export default function ProductsPage({ dark }) {
                       Enquire Now <ArrowRight size={11} className="transition-transform group-hover/link:translate-x-1" />
                     </button>
 
-                    {/* View All Photos button — only shown if product has gallery */}
+                    {/* View All Photos button — only shown if product has gallery 
                     {product.gallery && product.gallery.length > 0 && (
                       <button
                         onClick={(e) => {
@@ -152,6 +152,7 @@ export default function ProductsPage({ dark }) {
                         View All
                       </button>
                     )}
+                    */}
                   </div>
                 </div>
               </div>
