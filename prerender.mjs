@@ -1,186 +1,273 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, MessageCircle, ChevronRight, Package, Droplets, Shirt, Leaf, Images, BedDouble } from "lucide-react";
-import { fadeUp, stagger } from "../animations";
-import { Section, SectionLabel, SEOHead, ProductImage, ProductModal } from "../components/ui";
-import { PRODUCTS, PRODUCT_CATEGORIES } from "../data";
+/**
+ * prerender.mjs
+ * Run AFTER `vite build` to inject static SEO snapshots for each route.
+ * Usage: node prerender.mjs
+ *
+ * Reads dist/index.html and writes per-route HTML files so crawlers
+ * see unique <title> + <meta description> in raw HTML even before JS loads.
+ */
 
-const CAT_ICONS = { "personal-care": <Droplets size={18}/>, "comfort-items": <Shirt size={18}/>, "convenience-goods": <Package size={18}/>, "eco-material": <Leaf size={18}/>, "hotel-linen-bedding": <BedDouble size={18}/> };
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'fs';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-export default function ProductsPage({ dark }) {
-  const [filter, setFilter] = useState("All");
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const navigate = useNavigate();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const distDir = resolve(__dirname, 'dist');
+const htmlPath = resolve(distDir, 'index.html');
+const baseHtml = readFileSync(htmlPath, 'utf-8');
 
-  const categories = ["All", ...PRODUCT_CATEGORIES.map(c => c.name)];
-  const filtered = filter === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === filter);
+// ─── ROUTE DEFINITIONS ───────────────────────────────────────────────────────
 
-  const text = dark ? "text-white" : "text-[#1a3a5c]";
-  const muted = dark ? "text-white/50" : "text-slate-500";
-  const cardBg = dark ? "bg-[#071526] border-white/10" : "bg-white border-slate-100";
-  const tagBg = dark ? "bg-amber-400/20 text-amber-300" : "bg-white/90 text-[#1a3a5c]";
-  const filterActive = dark ? "bg-amber-500 text-white shadow-md" : "bg-[#1a3a5c] text-white shadow-md";
-  const filterInactive = dark ? "bg-white/10 text-white/60 hover:bg-white/20" : "bg-slate-100 text-slate-600 hover:bg-slate-200";
+const ROUTES = [
+  {
+    path: '/',
+    outFile: 'index.html',
+    title: 'Hotel Amenities Supplier in Bali | PT Kawan Baik Bali',
+    description: 'PT Kawan Baik Bali — trusted hotel amenities & hospitality supplier in Bali, Indonesia. We supply toiletries, towels, bathrobes, slippers & eco-friendly amenities to 500+ hotels across Bali. Fast delivery, flexible MOQ.',
+    canonical: 'https://www.kawanbaikbali.com/',
+    h1: 'Premium Hotel Amenities Supplier in Bali',
+    body: `
+      <h1>Hotel Amenities Supplier in Bali | PT Kawan Baik Bali</h1>
+      <p>PT Kawan Baik Bali is a leading hotel amenities and hospitality supplier based in Bali, Indonesia. We supply premium toiletries, towels, bathrobes, slippers, and eco-friendly amenities to 500+ hotels and resorts across Bali. Fast delivery, flexible MOQ.</p>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    `,
+  },
+  {
+    path: '/products',
+    outFile: 'products/index.html',
+    title: 'Hotel Amenities Products Bali | Shampoo, Towels, Eco-Friendly | PT Kawan Baik Bali',
+    description: 'Lihat semua produk hotel amenities PT Kawan Baik Bali: personal care, comfort items, convenience goods & eco-friendly solutions. HALAL certified, POM certified. Supplier 500+ hotel di Bali & Indonesia.',
+    canonical: 'https://www.kawanbaikbali.com/products',
+    h1: 'All Hotel Amenities Products — PT Kawan Baik Bali',
+    body: `
+      <h1>Hotel Amenities Products — Supplier Bali</h1>
+      <p>Complete range of hotel amenity products for Bali hotels and resorts. HALAL certified, POM certified, made in Indonesia.</p>
+      <ul>
+        <li><a href="/products/personal-care">Personal Care Essentials</a> — Shampoo, conditioner, shower gel, body lotion, bar soap</li>
+        <li><a href="/products/comfort-items">Comfort Items</a> — Bath towels, bathrobes, hotel slippers</li>
+        <li><a href="/products/convenience-goods">Convenience Goods</a> — Cotton buds, shower cap, comb, tissue, sewing kit</li>
+        <li><a href="/products/eco-material">Eco Material</a> — Bamboo toothbrush, refillable dispensers, natural soap</li>
+        <li><a href="/products/hotel-linen-bedding">Hotel Linen &amp; Bedding</a> — Bath towels, duvet cover, bed protector, bolster case</li>
+      </ul>
+    `,
+  },
+  {
+    path: '/products/personal-care',
+    outFile: 'products/personal-care/index.html',
+    title: 'Personal Care Hotel Amenities Bali | Shampoo, Conditioner, Shower Gel | PT Kawan Baik Bali',
+    description: 'Supplier personal care hotel amenities Bali: shampoo, conditioner, shower gel, body lotion, bar soap. HALAL & POM certified. Supply 500+ hotels di Bali & Indonesia.',
+    canonical: 'https://www.kawanbaikbali.com/products/personal-care',
+    h1: 'Personal Care Hotel Amenities — Supplier Bali',
+    body: `
+      <h1>Personal Care Hotel Amenities — Shampoo, Conditioner, Shower Gel Bali</h1>
+      <p>Premium personal care hotel amenities for Bali hotels and resorts. HALAL-certified and POM-certified products, produced locally in Bali and Indonesia.</p>
+      <ul>
+        <li>Shampoo Classic — green tea extract, 25ml</li>
+        <li>Shampoo Aromatherapy — aloe vera extract, 25-30ml</li>
+        <li>Hair Conditioner — classic with green tea, 25ml</li>
+        <li>Shower Gel Classic — green tea, 25ml</li>
+        <li>Shower Gel Aromatherapy — 30ml, POM-certified</li>
+        <li>Body Lotion Classic & Aromatherapy — 25-30ml</li>
+        <li>Bath Foam — 25ml</li>
+        <li>Liquid Soap — POM-certified, 25ml</li>
+        <li>Bar Soap — HALAL-certified, 15gr & 25gr</li>
+      </ul>
+    `,
+  },
+  {
+    path: '/products/comfort-items',
+    outFile: 'products/comfort-items/index.html',
+    title: 'Hotel Towels, Bathrobes & Slippers Supplier Bali | PT Kawan Baik Bali',
+    description: 'Supplier handuk hotel, bathrobe & slippers Bali. 600 GSM 100% cotton towels, terry bathrobe custom embroidery, anti-slip slippers. Kualitas 5-star untuk hotel & resort Bali.',
+    canonical: 'https://www.kawanbaikbali.com/products/comfort-items',
+    h1: 'Comfort Items — Hotel Towels, Bathrobes & Slippers Bali',
+    body: `
+      <h1>Hotel Towels, Bathrobes & Slippers Supplier in Bali</h1>
+      <p>Hotel-grade comfort items for Bali hotels and resorts. Superior softness and lasting durability for 5-star guest experiences.</p>
+      <ul>
+        <li>Bath Towels — 600 GSM 100% cotton, hotel-grade absorbency</li>
+        <li>Bathrobe — ultra-soft 100% cotton terry, custom embroidery available</li>
+        <li>Hotel Slippers — closed-toe or open-toe, non-slip sole</li>
+        <li>Face Towel — soft and absorbent</li>
+        <li>Bath Mat — non-slip, hotel grade</li>
+      </ul>
+    `,
+  },
+  {
+    path: '/products/convenience-goods',
+    outFile: 'products/convenience-goods/index.html',
+    title: 'Convenience Goods Hotel Amenities Bali | Cotton Buds, Shower Cap | PT Kawan Baik Bali',
+    description: 'Supplier convenience goods hotel Bali: cotton buds, shower cap, sisir, tissue, sewing kit, shoe shine. Semua kebutuhan tamu hotel tersedia. Fast delivery seluruh Bali & Indonesia.',
+    canonical: 'https://www.kawanbaikbali.com/products/convenience-goods',
+    h1: 'Convenience Goods Hotel Amenities — Supplier Bali',
+    body: `
+      <h1>Convenience Goods Hotel Amenities — Supplier Bali</h1>
+      <p>All daily convenience essentials hotel guests expect. Individual packaging, hygiene-sealed, hotel-grade quality.</p>
+      <ul>
+        <li>Cotton Buds — 100% pure cotton, individually sealed</li>
+        <li>Shower Cap — waterproof PE, individually wrapped</li>
+        <li>Comb — fine-tooth hotel comb</li>
+        <li>Tissue — soft multi-ply facial tissue</li>
+        <li>Sewing Kit — needle, thread, button, safety pin</li>
+        <li>Shoe Shine — convenient single-use sachet</li>
+      </ul>
+    `,
+  },
+  {
+    path: '/products/eco-material',
+    outFile: 'products/eco-material/index.html',
+    title: 'Eco-Friendly Hotel Amenities Supplier Bali | Bamboo, Organic, Biodegradable | PT Kawan Baik Bali',
+    description: 'Supplier eco-friendly hotel amenities Bali: bamboo toothbrush, refillable dispensers, natural soap, organic shampoo. Solusi sustainable untuk hotel & resort ramah lingkungan di Bali.',
+    canonical: 'https://www.kawanbaikbali.com/products/eco-material',
+    h1: 'Eco-Friendly Hotel Amenities — Sustainable Supplier Bali',
+    body: `
+      <h1>Eco-Friendly Hotel Amenities — Sustainable Supplier Bali</h1>
+      <p>Sustainable, biodegradable amenity solutions for eco-conscious hotels and resorts in Bali. Responsibly sourced materials that guests love and the planet thanks you for.</p>
+      <ul>
+        <li>Bamboo Toothbrush — biodegradable, sustainably sourced</li>
+        <li>Refillable Dispensers — reduce single-use plastic waste</li>
+        <li>Natural Soap — plant-based ingredients, minimal packaging</li>
+        <li>Organic Shampoo — certified organic formulation</li>
+      </ul>
+    `,
+  },
+  {
+    path: '/products/hotel-linen-bedding',
+    outFile: 'products/hotel-linen-bedding/index.html',
+    title: 'Hotel Linen & Bedding Supplier Bali | Towels, Duvet, Bed Protector | PT Kawan Baik Bali',
+    description: 'Supplier hotel linen & bedding Bali: bath towels, duvet cover, duvet insert, bed protector, bolster case. Kualitas premium untuk hotel & resort di Bali & Indonesia.',
+    canonical: 'https://www.kawanbaikbali.com/products/hotel-linen-bedding',
+    h1: 'Hotel Linen & Bedding — Premium Supplier Bali',
+    body: `
+      <h1>Hotel Linen & Bedding — Premium Supplier Bali</h1>
+      <p>Complete hotel linen and bedding solutions for hotels, resorts, and villas across Bali and Indonesia. Premium quality that elevates the guest sleep experience.</p>
+      <ul>
+        <li>Bath Towels — available in multiple colours and stripe options</li>
+        <li>Duvet Cover — striped and plain, premium cotton blend</li>
+        <li>Duvet Insert — plush fill for all-season comfort</li>
+        <li>Bed Protector — waterproof and breathable mattress protection</li>
+        <li>Bolster Case — TC 200 smooth finish</li>
+      </ul>
+    `,
+  },
+  {
+    path: '/about',
+    outFile: 'about/index.html',
+    title: 'About PT Kawan Baik Bali | Hotel Amenities Supplier Bali Since 2014',
+    description: 'PT Kawan Baik Bali adalah supplier hotel amenities terpercaya di Bali sejak 2014. Melayani 500+ hotel & resort di Bali & Indonesia. HALAL certified, POM certified, ISO quality assured.',
+    canonical: 'https://www.kawanbaikbali.com/about',
+    h1: "About PT Kawan Baik Bali — Bali's Most Trusted Hotel Amenities Partner",
+    body: `
+      <h1>About PT Kawan Baik Bali — Hotel Amenities Supplier Since 2014</h1>
+      <p>PT Kawan Baik Bali is a leading hospitality supply company headquartered in Bali, Indonesia. We specialise in hotel amenities and hospitality equipment for hotels, resorts, villas, serviced apartments, and spas across the archipelago.</p>
+      <p>Founded with a commitment to quality and partnership, we serve 500+ properties from boutique guesthouses to 5-star international resorts.</p>
+      <p>Our products are HALAL-certified, POM-certified, and ISO quality assured.</p>
+      <ul>
+        <li>500+ Hotels Served across Bali and Indonesia</li>
+        <li>10+ Years in Bali's hospitality industry</li>
+        <li>HALAL & POM Certified products</li>
+        <li>24-hour response time</li>
+        <li>Flexible MOQ for all property sizes</li>
+        <li>Eco-friendly product lines available</li>
+      </ul>
+    `,
+  },
+  {
+    path: '/contact',
+    outFile: 'contact/index.html',
+    title: 'Contact PT Kawan Baik Bali | Hotel Amenities Supplier Bali | WhatsApp & Email',
+    description: 'Hubungi PT Kawan Baik Bali — supplier hotel amenities terpercaya di Bali. WhatsApp: +62 8810-3736-6555. Email: kawanbaik.bali@gmail.com. Lokasi: Kerobokan, Kuta Utara, Badung, Bali.',
+    canonical: 'https://www.kawanbaikbali.com/contact',
+    h1: 'Contact PT Kawan Baik Bali — Hotel Amenities Supplier Bali',
+    body: `
+      <h1>Contact PT Kawan Baik Bali</h1>
+      <p>Ready to elevate your guest experience? Contact us today for a personalised quote.</p>
+      <address>
+        <p>Phone / WhatsApp: <a href="tel:+62881037366555">+62 8810-3736-6555</a></p>
+        <p>Email: <a href="mailto:kawanbaik.bali@gmail.com">kawanbaik.bali@gmail.com</a></p>
+        <p>Website: <a href="https://kawanbaikbali.com">www.kawanbaikbali.com</a></p>
+        <p>Address: Blk. A3 No.31, Kerobokan Kaja, Kec. Kuta Utara, Kabupaten Badung, Bali 80361</p>
+      </address>
+    `,
+  },
+];
 
-  return (
-    <>
-      <SEOHead
-        title="Hotel Amenities Products Bali | Shampoo, Towels, Eco-Friendly | PT Kawan Baik Bali"
-        description="Lihat semua produk hotel amenities PT Kawan Baik Bali: personal care, comfort items, convenience goods & eco-friendly solutions. HALAL certified, POM certified. Supplier 500+ hotel di Bali & Indonesia."
-        canonical="https://www.kawanbaikbali.com/products"
-        ogImage="https://www.kawanbaikbali.com/og-image.jpeg"
-      />
+// ─── GENERATE FILES ───────────────────────────────────────────────────────────
 
-      {/* Page Hero */}
-      <div className={`pt-24 sm:pt-28 pb-10 sm:pb-14 ${dark ? "bg-[#071526]" : "bg-[#f8f9fc]"} transition-colors duration-300`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs mb-6">
-            <Link to="/" className={`${muted} hover:text-amber-500 transition-colors`}>Home</Link>
-            <ChevronRight size={12} className={muted} />
-            <span className="text-amber-500 font-semibold">Products</span>
-          </div>
+let successCount = 0;
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
-          >
-            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8 bg-amber-500" />
-              <span className="text-amber-600 text-xs font-bold tracking-[0.25em] uppercase">Our Products</span>
-              <div className="h-px w-8 bg-amber-500" />
-            </motion.div>
-            <motion.h1 variants={fadeUp} className={`text-3xl sm:text-4xl lg:text-5xl font-black ${text} mb-4`}>
-              All Hotel Amenities
-            </motion.h1>
-            <motion.p variants={fadeUp} className={`${muted} max-w-2xl text-sm sm:text-base`}>
-              Quality hotel amenities trusted by 500+ hotels and resorts across Bali and Indonesia. Filter by category to find exactly what you need.
-            </motion.p>
-          </motion.div>
-        </div>
-      </div>
+for (const route of ROUTES) {
+  let html = baseHtml;
 
-      {/* Category Cards */}
-      <div className={`py-10 ${dark ? "bg-[#071526]" : "bg-[#f8f9fc]"} transition-colors duration-300`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-            {PRODUCT_CATEGORIES.map((cat) => (
-              <Link
-                key={cat.slug}
-                to={`/products/${cat.slug}`}
-                className={`group p-4 rounded-xl border text-center hover:-translate-y-1 transition-all duration-200 ${
-                  dark ? "bg-[#0d1f33] border-white/10 hover:border-amber-500/40" : "bg-white border-slate-100 hover:border-amber-300"
-                }`}
-              >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2 text-white" style={{ backgroundColor: cat.color }}>
-                  {CAT_ICONS[cat.slug]}
-                </div>
-                <p className={`font-bold text-xs sm:text-sm ${text} leading-tight`}>{cat.name}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Products Grid */}
-      <Section id="all-products" className={`py-10 sm:py-16 ${dark ? "bg-[#0d1f33]" : "bg-white"} transition-colors duration-300`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Filter tabs */}
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-2 justify-center mb-8 sm:mb-10">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                  filter === cat ? filterActive : filterInactive
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </motion.div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-            {filtered.map((product) => (
-              <div
-                key={product.id}
-                className={`group rounded-2xl sm:rounded-3xl overflow-hidden ${cardBg} border shadow-sm hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-200 cursor-pointer`}
-                onClick={() => setSelectedProduct(product)}
-              >
-                <div className="relative h-40 sm:h-52 overflow-hidden" style={{ background: dark ? "#0a1828" : "#e8eef4" }}>
-                  <ProductImage src={product.image} alt={product.name} dark={dark} className="w-full h-full group-hover:scale-105 transition-transform duration-300" />
-                  <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3">
-                    <span className={`text-[9px] sm:text-[10px] font-bold ${tagBg} px-2 py-0.5 sm:py-1 rounded-full shadow`}>
-                      {product.category}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-200 flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-white text-[10px] sm:text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded-full bg-black/50 border border-white/20">
-                      View Details
-                    </span>
-                  </div>
-                </div>
-                <div className="p-3 sm:p-4">
-                  <h2 className={`font-bold ${text} text-sm mb-1 leading-tight`}>{product.name}</h2>
-                  <p className={`${muted} text-xs leading-relaxed mb-2 sm:mb-3 line-clamp-2`}>{product.description}</p>
-
-                  {/* Action buttons row */}
-                  <div className="flex items-center justify-between gap-2">
-                    <button
-                      onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
-                      className="text-xs font-bold text-amber-600 hover:text-amber-500 flex items-center gap-1 group/link"
-                    >
-                      Enquire Now <ArrowRight size={11} className="transition-transform group-hover/link:translate-x-1" />
-                    </button>
-
-                    {/* View All Photos button — only shown if product has gallery */}
-                    {product.gallery && product.gallery.length > 0 && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/products/${product.slug}/gallery`);
-                        }}
-                        className={`flex items-center gap-1 text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-lg transition-all duration-150 ${
-                          dark
-                            ? "bg-white/10 text-white/70 hover:bg-amber-500/20 hover:text-amber-300"
-                            : "bg-slate-100 text-slate-500 hover:bg-amber-50 hover:text-amber-600"
-                        }`}
-                      >
-                        <Images size={11} />
-                        View All
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <motion.div variants={fadeUp} className="mt-10 sm:mt-12 text-center">
-            <a
-              href="https://wa.me/62881037366555?text=Hello%2C%20I%20would%20like%20to%20see%20your%20full%20product%20catalogue."
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border-2 font-bold hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base ${
-                dark
-                  ? "border-amber-500 text-amber-400 hover:bg-amber-500/10"
-                  : "border-[#1a3a5c] text-[#1a3a5c] hover:bg-[#1a3a5c] hover:text-white"
-              }`}
-            >
-              <MessageCircle size={16} />
-              Request Full Catalogue
-            </a>
-          </motion.div>
-        </div>
-      </Section>
-
-      <AnimatePresence>
-        {selectedProduct && (
-          <ProductModal product={selectedProduct} dark={dark} onClose={() => setSelectedProduct(null)} />
-        )}
-      </AnimatePresence>
-    </>
+  // Replace title
+  html = html.replace(
+    /<title>.*?<\/title>/,
+    `<title>${route.title}</title>`
   );
+
+  // Replace meta description
+  html = html.replace(
+    /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/,
+    `<meta name="description" content="${route.description}" />`
+  );
+
+  // Replace canonical
+  html = html.replace(
+    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/,
+    `<link rel="canonical" href="${route.canonical}" />`
+  );
+
+  // Replace og:title
+  html = html.replace(
+    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/,
+    `<meta property="og:title" content="${route.title}" />`
+  );
+
+  // Replace og:description
+  html = html.replace(
+    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/,
+    `<meta property="og:description" content="${route.description}" />`
+  );
+
+  // Replace og:url
+  html = html.replace(
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/,
+    `<meta property="og:url" content="${route.canonical}" />`
+  );
+
+  // Inject static SEO body into #root
+  const seoFallback = `
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap" aria-hidden="true">
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <a href="/products">Products</a>
+    <a href="/contact">Contact</a>
+  </nav>
+  ${route.body}
+  <footer>
+    <p>© ${new Date().getFullYear()} PT Kawan Baik Bali. Hotel Amenities Supplier in Bali, Indonesia.</p>
+    <address>Phone: +62 8810-3736-6555 | Email: kawanbaik.bali@gmail.com</address>
+  </footer>
+</div>`;
+
+  html = html.replace('<div id="root">', `<div id="root">${seoFallback}`);
+
+  // Write output file
+  const outPath = resolve(distDir, route.outFile);
+  const outDir = dirname(outPath);
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(outPath, html, 'utf-8');
+
+  console.log(`✅ ${route.path} → dist/${route.outFile}`);
+  successCount++;
 }
+
+console.log(`\n🎉 Prerender complete — ${successCount} pages generated.`);
+console.log('   Each page has unique <title>, <meta description>, and <link rel="canonical">.');
+console.log('   SEO fallback content is visually hidden but crawlable by Googlebot.');
