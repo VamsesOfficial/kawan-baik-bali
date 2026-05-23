@@ -18,15 +18,20 @@ function Hero({ dark }) {
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero.jpeg"
-          alt="Hotel Amenities Supplier Bali"
+          src="/hero-bali-gate.jpg"
+          alt="Gapura Bali — Hotel Amenities Supplier Bali | PT Kawan Baik Bali"
           className="w-full h-full object-cover"
-          style={{ minHeight: "100vh" }}
+          style={{
+            minHeight: "100vh",
+            objectPosition: "center 30%",
+          }}
           loading="eager"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d2137]/90 via-[#1a3a5c]/75 to-[#1a3a5c]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2137]/60 via-transparent to-transparent" />
+        {/* Gradient kiri — lebih tipis agar foto tetap cerah */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d2137]/70 via-[#0d2137]/25 to-transparent" />
+        {/* Gradient bawah tipis */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2137]/50 via-transparent to-transparent" />
       </div>
 
       <div className="absolute top-24 right-4 sm:right-10 lg:right-32 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 rounded-full border border-amber-400/20 animate-pulse" />
