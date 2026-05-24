@@ -63,22 +63,29 @@ function VibePlayer({ dark }) {
         onEnded={() => setPlaying(false)}
       />
 
-      {/* Animated icon */}
+      {/* Album cover */}
       <div className="flex justify-center mb-6">
-        <div className={`relative w-20 h-20 rounded-full flex items-center justify-center ${playing ? "bg-amber-500" : dark ? "bg-white/10" : "bg-amber-50"} transition-all duration-500`}>
-          <Music2 size={32} className={playing ? "text-white" : "text-amber-500"} />
+        <div className="relative w-40 h-40 rounded-2xl overflow-hidden shadow-2xl">
+          <img
+            src="/vibe-cover.jpg"
+            alt="Kawan Baik & Morning Glow — Feel The Freshness"
+            className={`w-full h-full object-cover transition-all duration-700 ${playing ? "scale-110" : "scale-100"}`}
+          />
           {playing && (
-            <span className="absolute inset-0 rounded-full bg-amber-400/40 animate-ping" />
+            <div className="absolute inset-0 rounded-2xl ring-4 ring-amber-400 ring-opacity-70 animate-pulse" />
           )}
         </div>
       </div>
 
       {/* Track info */}
-      <p className={`font-black text-base sm:text-lg ${dark ? "text-white" : "text-[#1a3a5c]"} mb-1`}>
-        Kawan Baik Bali Vibe
+      <p className={`font-black text-base sm:text-lg ${dark ? "text-white" : "text-[#1a3a5c]"} mb-0.5`}>
+        Feel The Freshness
+      </p>
+      <p className={`text-sm font-semibold mb-0.5 ${dark ? "text-amber-400" : "text-amber-600"}`}>
+        Kawan Baik & Morning Glow
       </p>
       <p className={`text-xs mb-6 ${dark ? "text-white/40" : "text-slate-400"}`}>
-        Feel the spirit ✨
+        영원히 함께해 ✨
       </p>
 
       {/* Progress bar */}
@@ -318,7 +325,7 @@ export default function AboutPage({ dark }) {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats 
       <Section id="stats" className={`py-16 sm:py-20 ${bg} transition-colors duration-300`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
@@ -335,7 +342,7 @@ export default function AboutPage({ dark }) {
             ))}
           </div>
         </div>
-      </Section>
+      </Section>*/}
 
 
       {/* ── OUR VIBE ── */}
