@@ -180,7 +180,7 @@ export default function ClientsPage({ dark }) {
           </motion.div>
         </div>
 
-        {/* ── STATS ── */}
+        {/* ── STATS ── 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
           <div className={`rounded-2xl border px-6 py-5 flex flex-wrap justify-center gap-6 sm:gap-12 ${dark ? "bg-white/5 border-white/10" : "bg-white border-slate-100 shadow-sm"}`}>
             {[
@@ -195,7 +195,7 @@ export default function ClientsPage({ dark }) {
               </div>
             ))}
           </div>
-        </div>
+        </div>*/}
 
         {/* ── GRID LOGO ── */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
