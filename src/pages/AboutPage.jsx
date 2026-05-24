@@ -360,7 +360,7 @@ export default function AboutPage({ dark }) {
               <div className="h-px w-8 bg-amber-500" />
             </motion.div>
             <motion.h2 variants={fadeUp} className={`text-3xl sm:text-4xl font-black ${text} mb-3`}>
-              Feel the Bali Spirit
+              Feel fresh all day
             </motion.h2>
             <motion.p variants={fadeUp} className={`${muted} text-sm sm:text-base mb-10`}>
               Di balik setiap produk yang kami kirim, ada semangat dan kehangatan tim kami. Santai sejenak, nikmati suasananya.
