@@ -18,7 +18,7 @@ function Hero({ dark }) {
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero.jpeg"
+          src="/hero-bali-gate.jpg"
           alt="Gapura Bali — Hotel Amenities Supplier Bali | PT Kawan Baik Bali"
           className="w-full h-full object-cover"
           style={{
@@ -436,12 +436,22 @@ function ClientsBanner({ dark }) {
           <motion.p variants={fadeUp} className={`${muted} text-sm sm:text-base mb-8`}>
             Kami bangga melayani berbagai hotel dan resort di Bali — dari properti butik hingga hotel berbintang. Kepercayaan klien adalah prioritas utama kami.
           </motion.p>
-          <motion.div variants={fadeUp}>
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 justify-center">
             <Link
               to="/clients"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1a3a5c] text-white font-black text-sm hover:bg-amber-500 hover:-translate-y-1 transition-all duration-300 shadow-lg"
             >
               Lihat Semua Klien Kami <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/about#vibe"
+              className={`inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 font-black text-sm hover:-translate-y-1 transition-all duration-300 ${
+                dark
+                  ? "border-amber-500 text-amber-400 hover:bg-amber-500/10"
+                  : "border-[#1a3a5c] text-[#1a3a5c] hover:bg-[#1a3a5c] hover:text-white"
+              }`}
+            >
+              🎵 Our Vibe
             </Link>
           </motion.div>
         </motion.div>

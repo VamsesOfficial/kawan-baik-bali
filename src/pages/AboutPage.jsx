@@ -1,10 +1,115 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Award, Sparkles, Shield, Leaf, Star, Heart, ChevronRight } from "lucide-react";
+import { ArrowRight, CheckCircle, Award, Sparkles, Shield, Leaf, Star, Heart, ChevronRight, Play, Pause, Music2 } from "lucide-react";
 import { fadeUp, stagger } from "../animations";
 import { Section, SectionLabel, SEOHead } from "../components/ui";
 import { WHY_ITEMS, GALLERY_PHOTOS } from "../data";
+
+function VibePlayer({ dark }) {
+  const audioRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const toggle = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playing) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setPlaying(!playing);
+  };
+
+  const handleTimeUpdate = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    setCurrentTime(audio.currentTime);
+    setProgress((audio.currentTime / audio.duration) * 100 || 0);
+  };
+
+  const handleLoadedMetadata = () => {
+    setDuration(audioRef.current?.duration || 0);
+  };
+
+  const handleSeek = (e) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    audio.currentTime = ratio * audio.duration;
+  };
+
+  const fmt = (s) => {
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2, "0")}`;
+  };
+
+  const card = dark
+    ? "bg-white/5 border-white/10"
+    : "bg-white border-slate-100 shadow-xl";
+
+  return (
+    <div className={`rounded-3xl border p-8 sm:p-10 ${card} max-w-md mx-auto`}>
+      <audio
+        ref={audioRef}
+        src="/kawan-baik-vibe.mp3"
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={() => setPlaying(false)}
+      />
+
+      {/* Animated icon */}
+      <div className="flex justify-center mb-6">
+        <div className={`relative w-20 h-20 rounded-full flex items-center justify-center ${playing ? "bg-amber-500" : dark ? "bg-white/10" : "bg-amber-50"} transition-all duration-500`}>
+          <Music2 size={32} className={playing ? "text-white" : "text-amber-500"} />
+          {playing && (
+            <span className="absolute inset-0 rounded-full bg-amber-400/40 animate-ping" />
+          )}
+        </div>
+      </div>
+
+      {/* Track info */}
+      <p className={`font-black text-base sm:text-lg ${dark ? "text-white" : "text-[#1a3a5c]"} mb-1`}>
+        Kawan Baik Bali Vibe
+      </p>
+      <p className={`text-xs mb-6 ${dark ? "text-white/40" : "text-slate-400"}`}>
+        Feel the spirit ✨
+      </p>
+
+      {/* Progress bar */}
+      <div
+        className={`w-full h-2 rounded-full mb-2 cursor-pointer ${dark ? "bg-white/10" : "bg-slate-100"}`}
+        onClick={handleSeek}
+      >
+        <div
+          className="h-full rounded-full bg-amber-500 transition-all duration-100"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      <div className={`flex justify-between text-[10px] mb-8 ${dark ? "text-white/30" : "text-slate-400"}`}>
+        <span>{fmt(currentTime)}</span>
+        <span>{fmt(duration)}</span>
+      </div>
+
+      {/* Play / Pause button */}
+      <button
+        onClick={toggle}
+        className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg ${
+          playing
+            ? "bg-[#1a3a5c] text-white"
+            : "bg-amber-500 text-white"
+        }`}
+      >
+        {playing ? <Pause size={22} /> : <Play size={22} className="translate-x-0.5" />}
+      </button>
+    </div>
+  );
+}
 
 export default function AboutPage({ dark }) {
   const [activePhoto, setActivePhoto] = useState(0);
@@ -231,6 +336,36 @@ export default function AboutPage({ dark }) {
           </div>
         </div>
       </Section>
+
+
+      {/* ── OUR VIBE ── */}
+      <section className={`py-16 sm:py-20 ${bg2} transition-colors duration-300`}>
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+          >
+            <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-amber-500" />
+              <span className="text-amber-600 text-xs font-bold tracking-[0.25em] uppercase">Our Vibe</span>
+              <div className="h-px w-8 bg-amber-500" />
+            </motion.div>
+            <motion.h2 variants={fadeUp} className={`text-3xl sm:text-4xl font-black ${text} mb-3`}>
+              Feel the Bali Spirit
+            </motion.h2>
+            <motion.p variants={fadeUp} className={`${muted} text-sm sm:text-base mb-10`}>
+              Di balik setiap produk yang kami kirim, ada semangat dan kehangatan tim kami. Santai sejenak, nikmati suasananya.
+            </motion.p>
+
+            {/* Music Player */}
+            <motion.div variants={fadeUp}>
+              <VibePlayer dark={dark} />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* CTA */}
       <div className={`py-12 sm:py-16 ${bg2} transition-colors duration-300`}>
