@@ -18,7 +18,7 @@ function Hero({ dark }) {
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero-bali-gate.jpg"
+          src="/hero.jpeg"
           alt="Gapura Bali — Hotel Amenities Supplier Bali | PT Kawan Baik Bali"
           className="w-full h-full object-cover"
           style={{
