@@ -18,7 +18,7 @@ function Hero({ dark }) {
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero.jpeg"
+          src="/hero-bali-gate.jpg"
           alt="Gapura Bali — Hotel Amenities Supplier Bali | PT Kawan Baik Bali"
           className="w-full h-full object-cover"
           style={{
@@ -408,6 +408,48 @@ function CTASection() {
   );
 }
 
+
+// ─── CLIENTS BANNER ───────────────────────────────────────────────────────────
+
+function ClientsBanner({ dark }) {
+  const bg   = dark ? "bg-[#0a1929]"  : "bg-[#f0f4f8]";
+  const text = dark ? "text-white"    : "text-[#1a3a5c]";
+  const muted = dark ? "text-white/50" : "text-slate-500";
+
+  return (
+    <section className={`py-14 sm:py-16 transition-colors duration-300 ${bg}`}>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-4">
+            <div className="h-px w-8 bg-amber-500" />
+            <span className="text-amber-600 text-xs font-bold tracking-[0.25em] uppercase">Our Clients</span>
+            <div className="h-px w-8 bg-amber-500" />
+          </motion.div>
+          <motion.h2 variants={fadeUp} className={`text-3xl sm:text-4xl font-black ${text} mb-3`}>
+            Hotel & Resort di Bali<br className="hidden sm:block" /> yang Mempercayai Kami
+          </motion.h2>
+          <motion.p variants={fadeUp} className={`${muted} text-sm sm:text-base mb-8`}>
+            Kami bangga melayani berbagai hotel dan resort di Bali — dari properti butik hingga hotel berbintang. Kepercayaan klien adalah prioritas utama kami.
+          </motion.p>
+          <motion.div variants={fadeUp}>
+            <Link
+              to="/clients"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1a3a5c] text-white font-black text-sm hover:bg-amber-500 hover:-translate-y-1 transition-all duration-300 shadow-lg"
+            >
+              Lihat Semua Klien Kami <ArrowRight size={16} />
+            </Link>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ─── HOME PAGE ────────────────────────────────────────────────────────────────
 
 export default function HomePage({ dark }) {
@@ -423,6 +465,7 @@ export default function HomePage({ dark }) {
         <Hero dark={dark} />
         <AboutSnippet dark={dark} />
         <FeaturedCategories dark={dark} />
+        <ClientsBanner dark={dark} />
         <MapSection dark={dark} />
         <CTASection />
       </main>
