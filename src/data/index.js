@@ -245,9 +245,7 @@ export const PRODUCTS = [
     categorySlug: "comfort-items",
     image: "/images/prod-17-hotel-slippers.jpg",
     description: "Open-toe woven pandan/bamboo slippers with green fabric border — natural texture, lightweight, and eco-friendly feel for hotel & villa use.",
-    gallery: [
-      { src: "/images/prod-14-hotel-slippers.jpg", caption: "Hotel Slippers standard view" },
-    ],
+    gallery: [],
   },
   {
     id: 18,
@@ -259,10 +257,20 @@ export const PRODUCTS = [
     description: "Open-toe woven bamboo slippers with natural cream/white border — elegant neutral tone, breathable, and perfect for eco-conscious hotels & resorts.",
     gallery: [],
   },
+ {
+    id: 19,
+    slug: "hotel-slippers",
+    name: "Hotel Slippers",
+    category: "Comfort Items",
+    categorySlug: "comfort-items",
+    image: "/images/prod-14-hotel-slippers.jpg",
+    description: "Closed-toe or open-toe slippers with non-slip sole, elegant and durable.",
+    gallery: [],
+  },
 
   // ─── CONVENIENCE GOODS ─────────────────────────────────────────────────────
   {
-    id: 18,
+    id: 20,
     slug: "cotton-buds",
     name: "Cotton Buds",
     category: "Convenience Goods",
@@ -272,7 +280,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 19,
+    id: 21,
     slug: "shower-cap",
     name: "Shower Cap",
     category: "Convenience Goods",
@@ -284,7 +292,7 @@ export const PRODUCTS = [
     description: "Waterproof PE shower cap, individually wrapped in elegant packaging.",
   },
   {
-    id: 20,
+    id: 22,
     slug: "hotel-comb",
     name: "Hotel Comb",
     category: "Convenience Goods",
@@ -294,7 +302,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 21,
+    id: 23,
     slug: "dental-kit",
     name: "Dental Kit",
     category: "Convenience Goods",
@@ -304,7 +312,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 22,
+    id: 24,
     slug: "sewing-kit",
     name: "Sewing Kit",
     category: "Convenience Goods",
@@ -314,7 +322,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 23,
+    id: 25,
     slug: "shaving-kit",
     name: "Shaving Kit",
     category: "Convenience Goods",
@@ -326,7 +334,7 @@ export const PRODUCTS = [
     description: "Hotel shaving kit with disposable razor and shaving cream — neatly packaged in a white box.",
   },
   {
-    id: 24,
+    id: 26,
     slug: "vanity-kit",
     name: "Vanity Kit",
     category: "Convenience Goods",
@@ -336,7 +344,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 25,
+    id: 27,
     slug: "sanitary-bag",
     name: "Sanitary Bag",
     category: "Convenience Goods",
@@ -350,7 +358,7 @@ export const PRODUCTS = [
 
   // ─── ECO-FRIENDLY SOLUTIONS ────────────────────────────────────────────────
   {
-    id: 26,
+    id: 28,
     slug: "eco-bamboo-wheat-comb",
     name: "Eco Bamboo & Wheat Straw Comb",
     category: "Eco Material",
@@ -360,7 +368,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 35,
+    id: 29,
     slug: "eco-wheat-razor",
     name: "Eco Wheat Straw Razor",
     category: "Eco Material",
@@ -370,7 +378,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 36,
+    id: 30,
     slug: "eco-amenity-set",
     name: "Eco Material Amenity Set",
     category: "Eco Material",
@@ -382,7 +390,7 @@ export const PRODUCTS = [
 
   // ─── HOTEL LINEN & BEDDING ─────────────────────────────────────────────────
   {
-    id: 27,
+    id: 31,
     slug: "bath-towel-white-blue",
     name: "Bath Towel White Blue",
     category: "Hotel Linen & Bedding",
@@ -392,7 +400,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 28,
+    id: 32,
     slug: "bath-towel-white-grey",
     name: "Bath Towel White Grey",
     category: "Hotel Linen & Bedding",
@@ -402,7 +410,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 29,
+    id: 33,
     slug: "bath-towel-blue-green",
     name: "Bath Towel Blue Green",
     category: "Hotel Linen & Bedding",
@@ -412,7 +420,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 30,
+    id: 34,
     slug: "bath-towel-orange-yellow",
     name: "Bath Towel Orange Yellow",
     category: "Hotel Linen & Bedding",
@@ -422,7 +430,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 31,
+    id: 35,
     slug: "hotel-duvet-cover",
     name: "Hotel Duvet Cover",
     category: "Hotel Linen & Bedding",
@@ -432,7 +440,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 32,
+    id: 36,
     slug: "hotel-duvet-insert",
     name: "Hotel Duvet Insert",
     category: "Hotel Linen & Bedding",
@@ -442,7 +450,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 33,
+    id: 37,
     slug: "hotel-bed-protector",
     name: "Hotel Bed Protector",
     category: "Hotel Linen & Bedding",
@@ -452,7 +460,7 @@ export const PRODUCTS = [
     gallery: [],
   },
   {
-    id: 34,
+    id: 38,
     slug: "hotel-bolster-case",
     name: "Hotel Bolster Case",
     category: "Hotel Linen & Bedding",
