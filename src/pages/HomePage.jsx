@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
@@ -101,67 +101,27 @@ function Hero({ dark }) {
 // ─── ABOUT SNIPPET ────────────────────────────────────────────────────────────
 
 function AboutSnippet({ dark }) {
-  const [activePhoto, setActivePhoto] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActivePhoto((p) => (p + 1) % GALLERY_PHOTOS.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
-
   const bg = dark ? "bg-[#0d1f33]" : "bg-white";
   const text = dark ? "text-white" : "text-[#1a3a5c]";
   const muted = dark ? "text-white/60" : "text-slate-600";
   const cardBg = dark ? "bg-white/5 border-white/10" : "bg-slate-50 border-slate-100";
-  const floatBg = dark ? "bg-[#0d1f33]" : "bg-white";
 
   return (
     <Section id="about-snippet" className={`py-16 sm:py-20 lg:py-32 ${bg} transition-colors duration-300`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div variants={fadeUp} className="relative order-2 lg:order-1">
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-              {GALLERY_PHOTOS.map((photo, i) => (
-                <img
-                  key={photo}
-                  src={photo}
-                  alt={`PT Kawan Baik Bali product ${i + 1}`}
-                  loading={i === 0 ? "eager" : "lazy"}
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-                  style={{ opacity: activePhoto === i ? 1 : 0 }}
-                />
-              ))}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a5c]/40 via-transparent" />
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                {GALLERY_PHOTOS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActivePhoto(i)}
-                    className={`rounded-full transition-all duration-300 ${
-                      activePhoto === i ? "w-5 h-1.5 bg-amber-400" : "w-1.5 h-1.5 bg-white/50 hover:bg-white/80"
-                    }`}
-                  />
-                ))}
-              </div>
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[3/4] shadow-2xl">
+              <video
+                src="/view_products.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a5c]/30 via-transparent" />
             </div>
-            <motion.div
-              variants={fadeUp}
-              custom={0.3}
-              className={`absolute -bottom-5 right-0 sm:-bottom-6 sm:-right-4 lg:-right-8 ${floatBg} rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-5 max-w-[155px] sm:max-w-[200px]`}
-            >
-              <div className="flex items-center gap-2.5 mb-2">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-100 flex items-center justify-center">
-                  <CheckCircle size={16} className="text-amber-600" />
-                </div>
-                <div>
-                  <p className={`font-black ${text} text-base sm:text-lg leading-none`}>ISO</p>
-                  <p className={`text-xs ${muted}`}>Certified</p>
-                </div>
-              </div>
-              <p className={`text-[10px] sm:text-[11px] ${muted} leading-snug`}>Quality-assured products for every property.</p>
-            </motion.div>
           </motion.div>
 
           <div className="order-1 lg:order-2">
