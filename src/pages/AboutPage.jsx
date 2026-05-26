@@ -173,68 +173,66 @@ export default function AboutPage({ dark }) {
       {/* Story Section */}
       <Section id="story" className={`py-16 sm:py-20 lg:py-24 ${bg} transition-colors duration-300`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Gallery */}
-            {/*<motion.div variants={fadeUp} className="relative order-2 lg:order-1">
-              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-                {GALLERY_PHOTOS.map((photo, i) => (
-                  <img
-                    key={photo}
-                    src={photo}
-                    alt={`PT Kawan Baik Bali hotel amenities products ${i + 1}`}
-                    loading={i === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-                    style={{ opacity: activePhoto === i ? 1 : 0 }}
-                  />
-                ))}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a5c]/40 via-transparent" />
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                  {GALLERY_PHOTOS.map((_, i) => (
-                    <button key={i} onClick={() => setActivePhoto(i)}
-                      className={`rounded-full transition-all duration-300 ${activePhoto === i ? "w-5 h-1.5 bg-amber-400" : "w-1.5 h-1.5 bg-white/50 hover:bg-white/80"}`}
-                    />
-                  ))}
-                </div>
-              </div>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-              <motion.div variants={fadeUp} custom={0.3}
-                className={`absolute -bottom-5 right-0 sm:-bottom-6 sm:-right-4 lg:-right-8 ${dark ? "bg-[#0d1f33]" : "bg-white"} rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-5 max-w-[155px] sm:max-w-[200px]`}
-              >
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-100 flex items-center justify-center">
-                    <CheckCircle size={16} className="text-amber-600" />
-                  </div>
-                  <div>
-                    <p className={`font-black ${text} text-base sm:text-lg leading-none`}>500+</p>
-                    <p className={`text-xs ${muted}`}>Hotels Served</p>
-                  </div>
-                </div>
-                <p className={`text-[10px] sm:text-[11px] ${muted} leading-snug`}>Trusted by hotels and resorts across Bali and Indonesia.</p>
+            {/* Left — Story text */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+            >
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
+                <div className="h-px w-8 bg-amber-500" />
+                <span className="text-amber-600 text-xs font-bold tracking-[0.25em] uppercase">Our Story</span>
               </motion.div>
-
-            </motion.div>*/}
-
-            {/* Content */}
-            <div className="order-1 lg:order-2">
-              <motion.h2 variants={fadeUp} className={`text-2xl sm:text-3xl lg:text-4xl font-black ${text} leading-tight mb-5`}>
-                Our Story
+              <motion.h2 variants={fadeUp} className={`text-2xl sm:text-3xl lg:text-4xl font-black ${text} leading-tight mb-6`}>
+                Berawal dari Bali,<br />untuk Industri Hospitality Indonesia
               </motion.h2>
               <motion.div variants={fadeUp} className={`space-y-4 ${muted} leading-relaxed text-sm sm:text-base`}>
                 <p>
-                  <strong className={text}>PT Kawan Baik Bali</strong> was founded with a simple belief: every hotel guest deserves to feel truly welcomed. From the moment they step into their room and reach for that first bottle of shampoo, the quality of your amenities speaks volumes.
+                  <strong className={text}>PT Kawan Baik Bali</strong> berdiri dengan satu keyakinan sederhana — setiap tamu hotel berhak merasakan sambutan yang tulus. Saat tangan mereka menyentuh botol shampoo pertama di kamar, kualitas amenities yang Anda pilih sudah bercerita tentang siapa Anda.
                 </p>
                 <p>
-                  Headquartered in Bali — the heart of Indonesia's tourism industry — we understand the unique demands of the hospitality sector. We've built our business on deep local knowledge, strong manufacturer partnerships, and an unwavering commitment to our clients.
+                  Berbasis di Bali, jantung industri pariwisata Indonesia, kami memahami betul dinamika unik sektor hospitality. Bisnis kami dibangun di atas pengetahuan lokal yang mendalam, kemitraan kuat dengan produsen terpercaya, dan komitmen yang tidak pernah goyah terhadap klien kami.
                 </p>
                 <p>
-                  Today, we supply <strong className={text}>500+ hotels, resorts, villas, serviced apartments, and spas</strong> across Bali and Indonesia, ranging from intimate boutique guesthouses to internationally branded 5-star resorts.
+                  Kami melayani berbagai properti di Bali dan Indonesia — dari guesthouse butik yang hangat hingga resort berbintang internasional. Bagi kami, tidak ada klien yang terlalu kecil atau terlalu besar.
                 </p>
                 <p>
-                  We believe the right amenities tell your guests: <em>"We care."</em> Our mission is to help every property in Indonesia deliver that experience — affordably, reliably, and beautifully.
+                  Kami percaya amenities yang tepat menyampaikan pesan kepada tamu Anda: <em className="text-amber-500">"Kami peduli."</em> Misi kami adalah membantu setiap properti di Indonesia menyampaikan pesan itu — dengan harga yang terjangkau, pengiriman yang andal, dan produk yang indah.
                 </p>
               </motion.div>
-            </div>
+            </motion.div>
+
+            {/* Right — Visual cards */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+              className="grid grid-cols-2 gap-4"
+            >
+              {[
+                { icon: "🏨", title: "Berbasis di Bali", desc: "Dekat dengan klien, paham kebutuhan lokal sektor hospitality" },
+                { icon: "🤝", title: "Kemitraan Jangka Panjang", desc: "Kami bangun relasi, bukan sekadar transaksi jual beli" },
+                { icon: "📦", title: "Produk Lengkap", desc: "Dari toiletries, linen, hingga amenity kit dalam satu sumber" },
+                { icon: "🚀", title: "Pengiriman Cepat", desc: "Seluruh Bali dan Indonesia dengan jadwal yang bisa diandalkan" },
+                { icon: "✅", title: "Kualitas Terjamin", desc: "Setiap produk melewati quality check sebelum sampai ke tangan Anda" },
+                { icon: "🌿", title: "Pilihan Eco Material", desc: "Tersedia lini produk ramah lingkungan untuk properti yang peduli bumi" },
+              ].map((item) => (
+                <motion.div
+                  key={item.title}
+                  variants={fadeUp}
+                  className={`rounded-2xl border p-4 sm:p-5 transition-all duration-300 hover:shadow-md ${cardBg}`}
+                >
+                  <span className="text-2xl mb-3 block">{item.icon}</span>
+                  <p className={`font-bold text-sm ${text} mb-1`}>{item.title}</p>
+                  <p className={`text-xs leading-relaxed ${muted}`}>{item.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+
           </div>
         </div>
       </Section>
