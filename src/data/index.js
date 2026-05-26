@@ -239,12 +239,24 @@ export const PRODUCTS = [
   // ─── COMFORT ITEMS ─────────────────────────────────────────────────────────
   {
     id: 17,
-    slug: "hotel-slippers",
-    name: "Hotel Slippers",
+    slug: "hotel-slippers-woven-green",
+    name: "Hotel Slippers Woven Green",
     category: "Comfort Items",
     categorySlug: "comfort-items",
-    image: "/images/prod-14-hotel-slippers.jpg",
-    description: "Closed-toe or open-toe slippers with non-slip sole, elegant and durable.",
+    image: "/images/prod-17-hotel-slippers.jpg",
+    description: "Open-toe woven pandan/bamboo slippers with green fabric border — natural texture, lightweight, and eco-friendly feel for hotel & villa use.",
+    gallery: [
+      { src: "/images/prod-14-hotel-slippers.jpg", caption: "Hotel Slippers standard view" },
+    ],
+  },
+  {
+    id: 18,
+    slug: "hotel-slippers-woven-natural",
+    name: "Hotel Slippers Woven Natural",
+    category: "Comfort Items",
+    categorySlug: "comfort-items",
+    image: "/images/prod-18-hotel-slippers.jpg",
+    description: "Open-toe woven bamboo slippers with natural cream/white border — elegant neutral tone, breathable, and perfect for eco-conscious hotels & resorts.",
     gallery: [],
   },
 
